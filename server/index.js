@@ -1,5 +1,6 @@
 require("dotenv").config();
-const { express } = require("./express");
+require("./models/index");
+const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -8,17 +9,13 @@ const PORT = process.env.PORT || 4000;
 const helmet = require("helmet");
 const morgan = require("morgan");
 
-app.use(morgan("common"));
-app.use(helmet());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+app.use(morgan("common")); // morgan package let use see http traffic in server logs easy
+app.use(helmet()); // helmet help secure express server with by setting up request headers!!!
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/", express.static("public/build"));
-app.use("/api", api);
+app.use("/api/v1", api);
 
 app.use((req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
