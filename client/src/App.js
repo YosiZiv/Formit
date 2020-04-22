@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { authCheck } from "./redux/actions/login";
 import { Main } from "./components/pages/Main";
 import Login from "./components/pages/Login";
 import { Register } from "./components/pages/Register";
@@ -9,7 +11,10 @@ import { FormsSubmissions } from "./components/pages/FormsSubmissions";
 import { FormSubmission } from "./components/pages/FormSubmission";
 import "./App.css";
 
-function App() {
+function App({ authCheck }) {
+  useEffect(() => {
+    authCheck();
+  });
   const routes = (
     <>
       <Switch>
@@ -25,5 +30,7 @@ function App() {
   );
   return <div className='App'>{routes}</div>;
 }
-
-export default App;
+// const mapStateToProps = ({ login: { loginForm } }) => {
+//   return { loginForm };
+// };
+export default connect(null, { authCheck })(App);

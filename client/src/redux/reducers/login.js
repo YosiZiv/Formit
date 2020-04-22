@@ -11,6 +11,8 @@ export default function login(state = initState, action) {
   switch (action.type) {
     case LOGIN_INPUT_CHANGE:
       const { id, value } = action.payload;
+      console.log("function", id, value);
+
       return {
         ...state,
         loginForm: {
