@@ -17,7 +17,10 @@ export const api = ({ dispatch }) => (next) => (action) => {
         })
         .catch((error) => {
           dispatch(loadingFinish());
-          dispatch({ type: onError, payload: error.response.data.errors });
+          dispatch({
+            type: onError,
+            payload: error.response?.data?.error ?? "Someting Went Wrong :/",
+          });
         });
     }
     if (method === "POST") {
@@ -29,7 +32,10 @@ export const api = ({ dispatch }) => (next) => (action) => {
         })
         .catch((error) => {
           dispatch(loadingFinish());
-          dispatch({ type: onError, payload: error.response.data.errors });
+          dispatch({
+            type: onError,
+            payload: error.response?.data?.errors ?? "Someting Went Wrong :/",
+          });
         });
     }
   }
