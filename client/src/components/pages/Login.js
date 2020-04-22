@@ -14,6 +14,8 @@ const Login = ({
 }) => {
   const handleInputChange = (event, id) => {
     const { value } = event.currentTarget;
+    console.log(id, value);
+
     loginInputChange({ id, value });
   };
   const handleInputFocus = (event, id, validation) => {
@@ -23,8 +25,13 @@ const Login = ({
   };
   const handleFormSubmit = async () => {
     console.log(loginForm);
-    userLogin(loginForm);
+    const payload = {
+      email: loginForm.email.value,
+      password: loginForm.password.value,
+    };
+    userLogin(payload);
   };
+  console.log(userLogin);
 
   return (
     <div className='login-container'>
