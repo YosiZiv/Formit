@@ -6,21 +6,30 @@ import {
   loginInputValidation,
   userLogin,
 } from "../../redux/actions/login";
+import { deleteMessage } from "../../redux/actions/ui";
+import Spinner from "../layouts/Spinner";
 const Login = ({
   loginForm,
   loginInputChange,
   loginInputValidation,
   userLogin,
+  message,
+  deleteMessage,
+  loading,
 }) => {
   const handleInputChange = (event, id) => {
     const { value } = event.currentTarget;
     console.log(id, value);
-
+    if (message) {
+      console.log("message found", message);
+      deleteMessage();
+    }
     loginInputChange({ id, value });
   };
   const handleInputFocus = (event, id, validation) => {
     console.log(event, id, validation);
     const { value } = event.currentTarget;
+
     loginInputValidation({ id, value, validation });
   };
   const handleFormSubmit = async () => {
@@ -31,7 +40,7 @@ const Login = ({
     };
     userLogin(payload);
   };
-  console.log(userLogin);
+  console.log(message);
 
   return (
     <div className='login-container'>
@@ -70,6 +79,7 @@ const Login = ({
           />
           <div className='mt-2 text-center'>
             <button
+              disabled={loading}
               onClick={handleFormSubmit}
               type='button'
               className='btn btn-success w-25'
@@ -78,16 +88,22 @@ const Login = ({
             </button>
           </div>
         </form>
+        {loading && <Spinner />}
+        {message && <div className='login-message text-center'>{message} </div>}
       </div>
     </div>
   );
 };
-const mapStateToProps = ({ login: { loginForm } }) => {
-  return { loginForm };
+const mapStateToProps = ({
+  login: { loginForm },
+  ui: { message, loading },
+}) => {
+  return { loginForm, message, loading };
 };
 
 export default connect(mapStateToProps, {
   loginInputChange,
   loginInputValidation,
   userLogin,
+  deleteMessage,
 })(Login);
