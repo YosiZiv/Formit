@@ -20,7 +20,9 @@ exports.createSession = async (req, res) => {
   const user = await User.findOne({ email });
   //  check for user
   if (!user) {
-    return res.status(400).json({ message: "email or password incorrect" });
+    console.log("no user found return 400");
+
+    return res.status(400).json({ errors: "email or password incorrect" });
   }
   // if (!user.confirmed) {
   //   errors.global = 'please confirm your email first';
