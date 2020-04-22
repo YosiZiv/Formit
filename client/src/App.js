@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { authCheck } from "./redux/actions/login";
+import NavBar from "./components/layouts/NavBar";
 import { Main } from "./components/pages/Main";
 import Login from "./components/pages/Login";
 import { Register } from "./components/pages/Register";
@@ -28,7 +29,12 @@ function App({ authCheck }) {
       </Switch>
     </>
   );
-  return <div className='App'>{routes}</div>;
+  return (
+    <div className='App'>
+      <NavBar />
+      {routes}
+    </div>
+  );
 }
 // const mapStateToProps = ({ login: { loginForm } }) => {
 //   return { loginForm };
