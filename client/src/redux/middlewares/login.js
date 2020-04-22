@@ -9,6 +9,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
 } from "../actions/login";
+import { setMessage, deleteMessage } from "../actions/ui";
 
 const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
   if (action.type === CHECK_EXPIRES_IN) {
@@ -79,6 +80,7 @@ const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
 const userLoginFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_LOGIN_FAIL) {
     console.log(action.payload);
+    dispatch(setMessage(action.payload));
     return true;
   }
   next(action);
