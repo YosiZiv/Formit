@@ -22,7 +22,7 @@ export default function ui(state = initState, action) {
       console.log("delete message reducer");
       return { ...state, message: null };
     case CLEAR_UI:
-      return { ...state, loading: false, message: {}, redirect: null };
+      return { loading: false, message: null, redirect: null };
     case LOADING_START:
       return { ...state, loading: true };
     case LOADING_FINISH:

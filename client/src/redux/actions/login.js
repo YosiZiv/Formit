@@ -6,6 +6,7 @@ export const USER_LOGIN_FAIL = "[login] user login Fail";
 export const USER_LOGOUT = "[login] user Logout";
 export const AUTH_CHECK = "[login] User Auth Check";
 export const CHECK_EXPIRES_IN = "[login] User Check Expires In";
+export const CLEAR_LOGIN_STATE = "[login] Clear Ui";
 export const loginInputChange = (payload) => ({
   type: LOGIN_INPUT_CHANGE,
   payload,
@@ -25,15 +26,14 @@ export const logout = () => ({
 export const authCheck = () => ({
   type: AUTH_CHECK,
 });
-export const checkExpiresIn = (payload) => {
-  console.log(payload);
-
-  return {
-    type: CHECK_EXPIRES_IN,
-    payload,
-  };
-};
-
+export const checkExpiresIn = (payload) => ({
+  type: CHECK_EXPIRES_IN,
+  payload,
+});
+export const clearLoginState = (payload) => ({
+  type: CLEAR_LOGIN_STATE,
+  payload,
+});
 //   ({ dispatch }) => (next) => (action) => {
 //   console.log(expiresIn);
 //   setTimeout(() => {
