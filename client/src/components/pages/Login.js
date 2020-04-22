@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Input from "../layouts/Input";
 import {
   loginInputChange,
   loginInputValidation,
   userLogin,
+  clearLoginState,
 } from "../../redux/actions/login";
-import { deleteMessage } from "../../redux/actions/ui";
+import { deleteMessage, clearUi } from "../../redux/actions/ui";
 import Spinner from "../layouts/Spinner";
 const Login = ({
   loginForm,
@@ -16,7 +17,17 @@ const Login = ({
   message,
   deleteMessage,
   loading,
+  clearLoginState,
+  clearUi,
 }) => {
+  useEffect(
+    () => () => {
+      clearUi();
+      clearLoginState();
+    },
+    []
+  );
+
   const handleInputChange = (event, id) => {
     const { value } = event.currentTarget;
     console.log(id, value);
@@ -106,4 +117,6 @@ export default connect(mapStateToProps, {
   loginInputValidation,
   userLogin,
   deleteMessage,
+  clearLoginState,
+  clearUi,
 })(Login);
