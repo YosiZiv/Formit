@@ -1,4 +1,8 @@
-import { LOGIN_INPUT_CHANGE, LOGIN_INPUT_VALIDATION } from "../actions/login";
+import {
+  LOGIN_INPUT_CHANGE,
+  LOGIN_INPUT_VALIDATION,
+  CLEAR_LOGIN_STATE,
+} from "../actions/login";
 import { checkValidation } from "../../utility";
 const initState = {
   loginForm: {
@@ -34,6 +38,14 @@ export default function login(state = initState, action) {
             value,
             error,
           },
+        },
+      };
+    }
+    case CLEAR_LOGIN_STATE: {
+      return {
+        loginForm: {
+          email: { value: "", error: false },
+          password: { value: "", error: false },
         },
       };
     }
