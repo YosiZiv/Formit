@@ -2,6 +2,8 @@ import { API_REQUEST } from "../actions/api";
 import { axios } from "../../axios";
 // this middleware care only for API calls
 export const api = ({ dispatch }) => (next) => (action) => {
+  console.log("redux request 1");
+
   if (action.type === API_REQUEST) {
     const { method, url, onSuccess, onError } = action.meta;
     if (method === "GET") {

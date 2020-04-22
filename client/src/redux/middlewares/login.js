@@ -5,6 +5,7 @@ import {
   USER_LOGIN_FAIL,
 } from "../actions/login";
 const userLogin = ({ dispatch }) => (next) => (action) => {
+  console.log("redux request 2");
   next(action);
   if (action.type === USER_LOGIN) {
     const URL = "/session";
@@ -21,6 +22,7 @@ const userLogin = ({ dispatch }) => (next) => (action) => {
   }
 };
 const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
+  console.log("redux request 3");
   next(action);
   if (action.type === USER_LOGIN_SUCCESS) {
     console.log(action.payload);
@@ -29,6 +31,7 @@ const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
   }
 };
 const userLoginFail = ({ dispatch }) => (next) => (action) => {
+  console.log("redux request 4");
   next(action);
   if (action.type === USER_LOGIN_FAIL) {
     console.log(action.payload);

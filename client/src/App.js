@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Main } from "./components/pages/Main";
-import { Login } from "./components/pages/Login";
+import Login from "./components/pages/Login";
 import { Register } from "./components/pages/Register";
 import { FormBuild } from "./components/pages/FormBuild";
 import { FormsLists } from "./components/pages/FormsLists";

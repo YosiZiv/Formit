@@ -1,6 +1,10 @@
-import { LOGIN_INPUT_CHANGE } from "../actions/login";
+import { LOGIN_INPUT_CHANGE, LOGIN_INPUT_VALIDATION } from "../actions/login";
+import { checkValidation } from "../../utility";
 const initState = {
-  loginForm: {},
+  loginForm: {
+    email: { value: "", error: false },
+    password: { value: "", error: false },
+  },
 };
 
 export default function login(state = initState, action) {
@@ -16,6 +20,21 @@ export default function login(state = initState, action) {
           },
         },
       };
+    case LOGIN_INPUT_VALIDATION: {
+      const { id, value, validation } = action.payload;
+      const error = checkValidation(id, value, validation);
+      console.log(error);
+      return {
+        ...state,
+        loginForm: {
+          ...state.loginForm,
+          [id]: {
+            value,
+            error,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
