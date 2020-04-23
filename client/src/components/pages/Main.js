@@ -1,6 +1,6 @@
 import React from "react";
 import "./main.css";
-export const Main = () => (
+const Main = () => (
   <div className='main-container'>
     <div className='main-header'>
       <label>Create Forms Simply</label>
@@ -10,3 +10,4 @@ export const Main = () => (
     </div>
   </div>
 );
+export default Main;
