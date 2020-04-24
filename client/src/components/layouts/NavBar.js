@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 const NavBar = () => (
-  <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-    <a class='navbar-brand'>Formit</a>
+  <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+    <a className='navbar-brand'>Formit</a>
     <button
-      class='navbar-toggler'
+      className='navbar-toggler'
       type='button'
       data-toggle='collapse'
       data-target='#navbarNavAltMarkup'
@@ -12,16 +12,16 @@ const NavBar = () => (
       aria-expanded='false'
       aria-label='Toggle navigation'
     >
-      <span class='navbar-toggler-icon'></span>
+      <span className='navbar-toggler-icon'></span>
     </button>
-    <div class='collapse navbar-collapse' id='navbarNavAltMarkup'>
-      <div class='navbar-nav'>
+    <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
+      <div className='navbar-nav'>
         <NavLink
           activeClassName='nav-active'
           to='/'
           className='nav-item nav-link active'
         >
-          Home <span class='sr-only'>(current)</span>
+          Home <span className='sr-only'>(current)</span>
         </NavLink>
         <NavLink
           className='nav-item nav-link'
