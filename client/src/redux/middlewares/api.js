@@ -3,8 +3,6 @@ import { axios } from "../../axios";
 import { loadingStart, loadingFinish } from "../actions/ui";
 // this middleware care only for API calls
 export const api = ({ dispatch }) => (next) => (action) => {
-  console.log("redux request 1");
-
   if (action.type === API_REQUEST) {
     const { method, url, onSuccess, onError } = action.meta;
     dispatch(loadingStart());
@@ -34,7 +32,7 @@ export const api = ({ dispatch }) => (next) => (action) => {
           dispatch(loadingFinish());
           dispatch({
             type: onError,
-            payload: error.response?.data?.errors ?? "Someting Went Wrong :/",
+            payload: error.response?.data?.error ?? "Someting Went Wrong :/",
           });
         });
     }

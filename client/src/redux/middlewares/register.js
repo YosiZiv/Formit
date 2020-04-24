@@ -8,7 +8,9 @@ import { setMessage } from "../actions/ui";
 
 const userRegister = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER) {
-    const URL = "/register";
+    console.log("redux function work", action.payload);
+
+    const URL = "/user";
     return dispatch(
       apiRequest(
         "POST",
@@ -39,4 +41,8 @@ const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   next(action);
 };
 
-export const loginMdl = [userRegister, userRegisterSuccess, userRegisterFail];
+export const registerMdl = [
+  userRegister,
+  userRegisterSuccess,
+  userRegisterFail,
+];

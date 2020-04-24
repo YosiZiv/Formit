@@ -1,8 +1,8 @@
 export const REGISTER_INPUT_CHANGE = "[REGISTER] Set Input";
 export const REGISTER_INPUT_VALIDATION = "[REGISTER] Input Validation";
-export const USER_REGISTER = "[REGISTER] user REGISTER Start";
-export const USER_REGISTER_SUCCESS = "[REGISTER] user REGISTER Success";
-export const USER_REGISTER_FAIL = "[REGISTER] user REGISTER Fail";
+export const USER_REGISTER = "[REGISTER] User Register Start";
+export const USER_REGISTER_SUCCESS = "[REGISTER] User Register Success";
+export const USER_REGISTER_FAIL = "[REGISTER] User Register Fail";
 export const CLEAR_REGISTER_STATE = "[REGISTER] Clear Ui";
 
 export const registerInputChange = (payload) => ({

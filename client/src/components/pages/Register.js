@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import "./register.css";
 import {
   registerInputChange,
   registerInputValidation,
@@ -13,6 +14,7 @@ const Register = ({
   registerInputChange,
   registerInputValidation,
   registerForm,
+  userRegister,
   message,
   loading,
 }) => {
@@ -31,14 +33,15 @@ const Register = ({
   };
   const handleFormSubmit = async () => {
     const data = removeErrorFromObjects(registerForm);
+    console.log(data);
     userRegister(data);
   };
   return (
-    <div className='login-container'>
-      <div className='login-header mt-2 text-center'>
+    <div className='register-container'>
+      <div className='register-header mt-2 text-center'>
         <h1>Register </h1>
       </div>
-      <div className='login-form p-2'>
+      <div className='register-form p-2'>
         <form>
           <Input
             id='name'
@@ -110,12 +113,14 @@ const Register = ({
               type='button'
               className='btn btn-success w-25'
             >
-              Login
+              Register
             </button>
           </div>
         </form>
         {loading && <Spinner />}
-        {message && <div className='login-message text-center'>{message} </div>}
+        {message && (
+          <div className='register-message text-center'>{message} </div>
+        )}
       </div>
     </div>
   );
@@ -130,4 +135,5 @@ const mapStateToProps = ({
 export default connect(mapStateToProps, {
   registerInputChange,
   registerInputValidation,
+  userRegister,
 })(Register);
