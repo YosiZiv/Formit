@@ -2,12 +2,20 @@ const { Form } = require("../../../models/index");
 
 exports.createForm = async (req, res) => {
   // START UP CREATE FUNCTION FOR Form refactored later
-  const { body } = req;
-  console.log("function 3 work ", Form);
+  const {
+    body,
+    decoded: {
+      $__: { _id },
+    },
+  } = req;
+  body.user = _id;
+  console.log();
+
+  console.log("function 3 work ", body);
   try {
-    const newForm = await new Form({ ...body });
-    await newForm.save();
-    return res.status(201).json({ data: newForm, message: "form created" });
+    const form = await new Form({ ...body });
+    await form.save();
+    return res.status(201).json({ message: "form created", form });
   } catch (err) {
     console.log(err);
     return res.status(400).json({ message: "validation failed" });

@@ -20,17 +20,17 @@ const FormSchema = new Schema({
       "Error user didn't found",
     ],
   },
-  name: {
+  formName: {
     type: String,
     required: true,
     maxlength: 30,
   },
-  inputs: {
+  fields: {
     type: [
       {
         label: { type: String, required: true, maxlength: 30 },
         name: { type: String, required: true, maxlength: 30 },
-        inputType: {
+        type: {
           type: String,
           required: true,
           enum: ["text", "email", "password", "color", "date", "number", "tel"],
