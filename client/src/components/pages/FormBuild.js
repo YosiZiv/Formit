@@ -10,6 +10,7 @@ import {
   formCheckValidation,
 } from "../../redux/actions/formBuild";
 import FormField from "../layouts/FormField";
+import { removeErrorFromObjects } from "../../utility";
 const FormBuild = ({
   form,
   formBuildInputChange,
@@ -39,21 +40,13 @@ const FormBuild = ({
     formCheckValidation();
   };
   const formSubmitHandler = () => {
-    console.log("form submit work ", form);
     const { formName, fields } = form;
-    const newArray = removeErrorFromFields(fields);
+    const newArray = removeErrorFromObjects(fields);
     const payload = {
       formName,
       fields: newArray,
     };
     formSubmit({ ...payload });
-  };
-  const removeErrorFromFields = (fields) => {
-    return fields.map((field) => {
-      const { label, name, type } = field;
-      console.log(field, label, name, type);
-      return { label: label.value, name: name.value, type };
-    });
   };
   const formFields = form.fields?.length
     ? form.fields.map((field) => {
