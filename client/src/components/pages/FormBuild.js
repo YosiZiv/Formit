@@ -6,6 +6,7 @@ import {
   formBuildInputChange,
   formNameInputChange,
   formBuildInputValidation,
+  formSubmit,
   formCheckValidation,
 } from "../../redux/actions/formBuild";
 import FormField from "../layouts/FormField";
@@ -15,6 +16,7 @@ const FormBuild = ({
   formNameInputChange,
   formBuildInputValidation,
   formCheckValidation,
+  formSubmit,
   createFormField,
 }) => {
   const inputChange = (event) => {
@@ -35,6 +37,23 @@ const FormBuild = ({
 
     formBuildInputValidation({ field, id, value, validation });
     formCheckValidation();
+  };
+  const formSubmitHandler = () => {
+    console.log("form submit work ", form);
+    const { formName, fields } = form;
+    const newArray = removeErrorFromFields(fields);
+    const payload = {
+      formName,
+      fields: newArray,
+    };
+    formSubmit({ ...payload });
+  };
+  const removeErrorFromFields = (fields) => {
+    return fields.map((field) => {
+      const { label, name, type } = field;
+      console.log(field, label, name, type);
+      return { label: label.value, name: name.value, type };
+    });
   };
   const formFields = form.fields?.length
     ? form.fields.map((field) => {
@@ -89,7 +108,9 @@ const FormBuild = ({
               value={form.formName}
             />
           </div>
-          <button className='btn btn-success'>Create</button>
+          <button onClick={formSubmitHandler} className='btn btn-success'>
+            Create
+          </button>
         </div>
       ) : null}
     </div>
@@ -104,5 +125,6 @@ export default connect(mapStateToProps, {
   formNameInputChange,
   formBuildInputValidation,
   formCheckValidation,
+  formSubmit,
   createFormField,
 })(FormBuild);

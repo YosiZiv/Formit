@@ -4,8 +4,9 @@ export const FORM_BUILD_INPUT_CHANGE = "[formBuild] Set Input";
 export const FORM_BUILD_INPUT_VALIDATION = "[formBuild] Input Validation";
 export const CHECK_FORM_VALIDATION = "[formBuild] Form Check Validation";
 export const FORM_NAME_INPUT_CHANGE = "[formBuild] Form Name Input Change";
-export const FORM_BUILD_SUBMIT = "[formBuild] Form Build Submit";
-
+export const FORM_SUBMIT = "[formBuild] Form Submit";
+export const FORM_SUBMIT_SUCCESS = "[formBuild] Form Submit Success";
+export const FORM_SUBMIT_FAIL = "[formBuild] Form Submit Fail";
 export const createFormField = () => ({
   type: CREATE_FORM_FIELD,
 });
@@ -29,6 +30,7 @@ export const formBuildInputValidation = (payload) => ({
 export const formCheckValidation = () => ({
   type: CHECK_FORM_VALIDATION,
 });
-export const formBuildSubmit = (payload) => ({
-  type: CHECK_FORM_VALIDATION,
+export const formSubmit = (payload) => ({
+  type: FORM_SUBMIT,
+  payload,
 });
