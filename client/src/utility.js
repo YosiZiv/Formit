@@ -21,3 +21,30 @@ export const checkValidation = (id, value, validation) => {
   }
   return false;
 };
+export const removeErrorFromObjects = (array) => {
+  if (Array.isArray(array)) {
+    return array.map((obj) => {
+      const newObject = {};
+      Object.entries(obj).map(([key, value]) => {
+        if (typeof value === "object") {
+          newObject[key] = value.value;
+        } else {
+          newObject[key] = value;
+        }
+      });
+      return newObject;
+    });
+  } else if (typeof array === "object") {
+    const newObject = {};
+    Object.entries(array).map(([key, value]) => {
+      if (typeof value === "object") {
+        newObject[key] = value.value;
+      } else {
+        newObject[key] = value;
+      }
+    });
+    return newObject;
+  } else {
+    throw new Error("argoument type must be array or object");
+  }
+};
