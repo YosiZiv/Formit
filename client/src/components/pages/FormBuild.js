@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./formBuild.css";
 import {
@@ -9,9 +9,11 @@ import {
   formSubmit,
   formCheckValidation,
 } from "../../redux/actions/formBuild";
+import { clearUi } from "../../redux/actions/ui";
 import FormField from "../layouts/FormField";
 import { removeErrorFromObjects } from "../../utility";
 const FormBuild = ({
+  history,
   form,
   formBuildInputChange,
   formNameInputChange,
@@ -19,23 +21,32 @@ const FormBuild = ({
   formCheckValidation,
   formSubmit,
   createFormField,
+  redirect,
+  isAuth,
+  clearUi,
 }) => {
+  useEffect(
+    () => () => {
+      clearUi();
+    },
+    []
+  );
+  console.log(redirect);
+  !localStorage.getItem("token") && history.push("/");
+  redirect && history.push(redirect);
   const inputChange = (event) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode;
-    console.log("test", id, value, field);
     formBuildInputChange({ field, id, value });
   };
   const nameChange = (event) => {
     const { value } = event.currentTarget;
-    console.log("test", value);
     formNameInputChange({ value });
   };
   const inputFocus = (event, validation) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode;
     console.log(field, id, value, validation);
-
     formBuildInputValidation({ field, id, value, validation });
     formCheckValidation();
   };
@@ -48,31 +59,8 @@ const FormBuild = ({
     };
     formSubmit({ ...payload });
   };
-  const formFields = form.fields?.length
-    ? form.fields.map((field) => {
-        const { id, label, name, type } = field;
 
-        return (
-          <FormField
-            key={id}
-            id={id}
-            label={label}
-            name={name}
-            type={type}
-            onBlur={(e) =>
-              inputFocus(e, {
-                isRequired: true,
-                minLength: 2,
-                maxLength: 15,
-              })
-            }
-            onChange={inputChange}
-          />
-        );
-      })
-    : [];
-  console.log(form);
-
+  const formFields = "";
   return (
     <div className='form-build-container'>
       <div className='form-build-header text-center m-3'>
@@ -88,7 +76,33 @@ const FormBuild = ({
             <small className='text-danger'>Max </small>
           )}
         </div>
-        <div className='form-build-field'>{formFields}</div>
+        <div className='form-build-field'>
+          {form.fields?.length
+            ? form.fields.map((field) => {
+                console.log("maping?");
+
+                const { id, label, name, type } = field;
+
+                return (
+                  <FormField
+                    key={id}
+                    id={id}
+                    label={label}
+                    name={name}
+                    type={type}
+                    onBlur={(e) =>
+                      inputFocus(e, {
+                        isRequired: true,
+                        minLength: 2,
+                        maxLength: 15,
+                      })
+                    }
+                    onChange={inputChange}
+                  />
+                );
+              })
+            : []}
+        </div>
       </div>
       {form.valid ? (
         <div className='form-build-submit d-flex'>
@@ -109,8 +123,8 @@ const FormBuild = ({
     </div>
   );
 };
-const mapStateToProps = ({ formBuild: { form } }) => {
-  return { form };
+const mapStateToProps = ({ formBuild: { form }, ui: { redirect, isAuth } }) => {
+  return { form, redirect, isAuth };
 };
 
 export default connect(mapStateToProps, {
@@ -120,4 +134,5 @@ export default connect(mapStateToProps, {
   formCheckValidation,
   formSubmit,
   createFormField,
+  clearUi,
 })(FormBuild);

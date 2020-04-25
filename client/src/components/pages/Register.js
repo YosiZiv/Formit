@@ -5,24 +5,35 @@ import {
   registerInputChange,
   registerInputValidation,
   userRegister,
+  clearRegisterState,
 } from "../../redux/actions/register";
-import { deleteMessage } from "../../redux/actions/ui";
+import { deleteMessage, clearUi } from "../../redux/actions/ui";
 import Input from "../layouts/Input";
 import Spinner from "../layouts/Spinner";
 import { removeErrorFromObjects } from "../../utility";
 const Register = ({
+  history,
   registerInputChange,
   registerInputValidation,
   registerForm,
   userRegister,
   message,
   loading,
+  redirect,
+  clearRegisterState,
+  clearUi,
 }) => {
+  useEffect(
+    () => () => {
+      clearUi();
+      clearRegisterState();
+    },
+    []
+  );
+  redirect && history.push(redirect);
   const handleInputChange = (event) => {
     const { id, value } = event.currentTarget;
-    console.log(id, value);
     if (message) {
-      console.log("message found", message);
       deleteMessage();
     }
     registerInputChange({ id, value });
@@ -33,15 +44,14 @@ const Register = ({
   };
   const handleFormSubmit = async () => {
     const data = removeErrorFromObjects(registerForm);
-    console.log(data);
     userRegister(data);
   };
   return (
     <div className='register-container'>
-      <div className='register-header mt-2 text-center'>
+      <div className='register-header'>
         <h1>Register </h1>
       </div>
-      <div className='register-form p-2'>
+      <div className='register-form'>
         <form>
           <Input
             id='name'
@@ -81,7 +91,7 @@ const Register = ({
             error={registerForm.password?.error}
             required
             value={registerForm.password?.value ?? ""}
-            onChange={(e) => handleInputChange(e, "password")}
+            onChange={handleInputChange}
             onBlur={(e) =>
               handleInputFocus(e, "password", {
                 isRequired: true,
@@ -97,7 +107,7 @@ const Register = ({
             error={registerForm.passwordConfirm?.error}
             required
             value={registerForm.passwordConfirm?.value ?? ""}
-            onChange={(e) => handleInputChange(e, "passwordConfirm")}
+            onChange={handleInputChange}
             onBlur={(e) =>
               handleInputFocus(e, "passwordConfirm", {
                 isRequired: true,
@@ -127,13 +137,15 @@ const Register = ({
 };
 const mapStateToProps = ({
   register: { registerForm },
-  ui: { message, loading },
+  ui: { message, loading, redirect },
 }) => {
-  return { registerForm, message, loading };
+  return { registerForm, message, loading, redirect };
 };
 
 export default connect(mapStateToProps, {
   registerInputChange,
   registerInputValidation,
   userRegister,
+  clearRegisterState,
+  clearUi,
 })(Register);
