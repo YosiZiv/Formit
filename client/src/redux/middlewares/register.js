@@ -4,7 +4,7 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from "../actions/register";
-import { setMessage } from "../actions/ui";
+import { setMessage, redirect } from "../actions/ui";
 
 const userRegister = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER) {
@@ -25,10 +25,7 @@ const userRegister = ({ dispatch }) => (next) => (action) => {
 };
 const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER_SUCCESS) {
-    const {
-      payload: { message },
-    } = action;
-    setMessage({ message });
+    dispatch(redirect("/"));
   }
   next(action);
 };

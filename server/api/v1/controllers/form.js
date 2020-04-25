@@ -9,10 +9,9 @@ exports.createForm = async (req, res) => {
     },
   } = req;
   body.user = _id;
-  console.log();
-
-  console.log("function 3 work ", body);
   try {
+    // add inputs validation on server side
+    //for now mongodb validation is working fine
     const form = await new Form({ ...body });
     await form.save();
     return res.status(201).json({ message: "form created", form });
