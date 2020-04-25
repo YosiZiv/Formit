@@ -11,6 +11,7 @@ import {
 import { deleteMessage, clearUi } from "../../redux/actions/ui";
 import Spinner from "../layouts/Spinner";
 const Login = ({
+  history,
   loginForm,
   loginInputChange,
   loginInputValidation,
