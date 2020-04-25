@@ -7,6 +7,7 @@ export const FORM_NAME_INPUT_CHANGE = "[formBuild] Form Name Input Change";
 export const FORM_SUBMIT = "[formBuild] Form Submit";
 export const FORM_SUBMIT_SUCCESS = "[formBuild] Form Submit Success";
 export const FORM_SUBMIT_FAIL = "[formBuild] Form Submit Fail";
+
 export const createFormField = () => ({
   type: CREATE_FORM_FIELD,
 });

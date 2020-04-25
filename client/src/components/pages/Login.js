@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Input from "../layouts/Input";
 import {
   loginInputChange,
@@ -10,6 +11,7 @@ import {
 import { deleteMessage, clearUi } from "../../redux/actions/ui";
 import Spinner from "../layouts/Spinner";
 const Login = ({
+  history,
   loginForm,
   loginInputChange,
   loginInputValidation,
@@ -19,6 +21,7 @@ const Login = ({
   loading,
   clearLoginState,
   clearUi,
+  redirect,
 }) => {
   useEffect(
     () => () => {
@@ -27,7 +30,7 @@ const Login = ({
     },
     []
   );
-
+  redirect && history.push(redirect);
   const handleInputChange = (event, id) => {
     const { value } = event.currentTarget;
     console.log(id, value);
@@ -107,9 +110,9 @@ const Login = ({
 };
 const mapStateToProps = ({
   login: { loginForm },
-  ui: { message, loading },
+  ui: { message, loading, redirect },
 }) => {
-  return { loginForm, message, loading };
+  return { loginForm, message, loading, redirect };
 };
 
 export default connect(mapStateToProps, {

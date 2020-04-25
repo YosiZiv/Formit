@@ -2,39 +2,40 @@ const { User } = require("../../../models/index");
 const bcrypt = require("bcryptjs");
 
 exports.createUser = async (req, res) => {
-  // START UP CREATE FUNCTION FOR User refactored later
   const { body } = req;
-  console.log("function 2 work ", User);
+  console.log(body);
 
   //   const errors = validateAdminRegisterInput(body);
   //   if (Object.keys(errors).length) {
   //     return res.status(400).json({ errors });
   //   }
-  const newUser = await new User({ ...body });
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, async (e, hash) => {
-      //   if (e) {
-      //     errors.bcrypt = `something went wrong here :/`;
-      //     return res.status(401).json({ errors });
-      //   }
-      newUser.password = hash;
-      newUser
-        .save()
-        .then((createdUser) => {
+  try {
+    const newUser = await new User({ ...body });
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, async (e, hash) => {
+        if (e) {
           return res
-            .status(200)
-            .json({ msg: `User Created Successfully`, createdUser });
-        })
-        .catch((e) => {
-          console.log(e);
-          res.status(400).json({ message: "validation failed" });
-          //   if (e.code === 11000) {
-          //     errors.Email = `Email Have To be Unique`;
-          //     return res.status(401).json({ errors });
-          //   }
-          //   errors.createUser = e;
-          //   return res.status(401).json(e);
-        });
+            .status(401)
+            .json({ error: `something went wrong here :/` });
+        }
+        newUser.password = hash;
+        newUser
+          .save()
+          .then((createdUser) => {
+            console.log("whhohwwowowoowwoow2222", newUser);
+            return res
+              .status(200)
+              .json({ msg: `User Created Successfully`, data: createdUser });
+          })
+          .catch((e) => {
+            if (e.code === 11000) {
+              return res.status(401).json({ error: `Email Have To be Unique` });
+            }
+            return res.status(500).json({ error: "something went wrong :/" });
+          });
+      });
     });
-  });
+  } catch (e) {
+    return res.status(401).json({ error: "someting went wrong :/" });
+  }
 };

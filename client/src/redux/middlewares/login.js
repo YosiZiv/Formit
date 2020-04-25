@@ -9,7 +9,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
 } from "../actions/login";
-import { setMessage, deleteMessage } from "../actions/ui";
+import { setMessage, deleteMessage, isAuth, redirect } from "../actions/ui";
 
 const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
   if (action.type === CHECK_EXPIRES_IN) {
@@ -27,20 +27,21 @@ const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
 
 const userAuthCheck = ({ dispatch }) => (next) => (action) => {
   if (action.type === AUTH_CHECK) {
-    console.log("function user auth work");
-
     const token = localStorage.getItem("token");
     if (!token) {
+      console.log("is redux work currect?");
+
+      dispatch(isAuth(false));
       return dispatch(logout());
     } else {
       const date = new Date();
       const expiresIn = new Date(localStorage.getItem("expiresIn"));
       if (expiresIn && expiresIn > date) {
-        // dispatch({ type: USER_LOGIN_SUCCESS, payload: { token, expiresIn } });
+        dispatch(isAuth(true));
         return dispatch(checkExpiresIn({ expiresIn }));
       } else {
+        dispatch(isAuth(false));
         return dispatch(logout());
-        // dispatch(userLogout());
       }
     }
   }
@@ -66,22 +67,20 @@ const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
     const {
       payload: { expiresIn, token },
     } = action;
-    var date = new Date();
+    const date = new Date();
     date.setDate(date.getDate() + expiresIn);
     localStorage.setItem("token", token);
     localStorage.setItem("expiresIn", date);
-    let test = new Date();
-    test.setMinutes(test.getMinutes() + 1);
-    console.log(test);
-    return dispatch(checkExpiresIn({ expiresIn: test }));
+    dispatch(checkExpiresIn({ expiresIn: date }));
+    dispatch(isAuth(true));
+    return dispatch(redirect("/"));
   }
   next(action);
 };
 const userLoginFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_LOGIN_FAIL) {
     console.log(action.payload);
-    dispatch(setMessage(action.payload));
-    return true;
+    return dispatch(setMessage(action.payload));
   }
   next(action);
 };
@@ -89,7 +88,7 @@ const userLogout = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_LOGOUT) {
     localStorage.removeItem("token");
     localStorage.removeItem("expiresIn");
-    return true;
+    return dispatch(redirect("/"));
   }
   next(action);
 };
