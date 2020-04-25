@@ -8,13 +8,13 @@ import {
   formBuildInputValidation,
   formSubmit,
   formCheckValidation,
-} from "../../redux/actions/formBuild";
+} from "../../redux/actions/form";
 import { clearUi } from "../../redux/actions/ui";
 import FormField from "../layouts/FormField";
 import { removeErrorFromObjects } from "../../utility";
 const FormBuild = ({
   history,
-  form,
+  formBuild,
   formBuildInputChange,
   formNameInputChange,
   formBuildInputValidation,
@@ -51,7 +51,7 @@ const FormBuild = ({
     formCheckValidation();
   };
   const formSubmitHandler = () => {
-    const { formName, fields } = form;
+    const { formName, fields } = formBuild;
     const newArray = removeErrorFromObjects(fields);
     const payload = {
       formName,
@@ -60,7 +60,6 @@ const FormBuild = ({
     formSubmit({ ...payload });
   };
 
-  const formFields = "";
   return (
     <div className='form-build-container'>
       <div className='form-build-header text-center m-3'>
@@ -68,7 +67,7 @@ const FormBuild = ({
       </div>
       <div className='form-build-main'>
         <div className='form-build-new m-3'>
-          {form.fields.length < 10 ? (
+          {formBuild.fields.length < 10 ? (
             <button onClick={createFormField} className='btn btn-success'>
               New Input
             </button>
@@ -77,12 +76,9 @@ const FormBuild = ({
           )}
         </div>
         <div className='form-build-field'>
-          {form.fields?.length
-            ? form.fields.map((field) => {
-                console.log("maping?");
-
+          {formBuild.fields?.length
+            ? formBuild.fields.map((field) => {
                 const { id, label, name, type } = field;
-
                 return (
                   <FormField
                     key={id}
@@ -104,7 +100,7 @@ const FormBuild = ({
             : []}
         </div>
       </div>
-      {form.valid ? (
+      {formBuild.valid ? (
         <div className='form-build-submit d-flex'>
           <div>
             <label>Enter Form Name</label>
@@ -112,7 +108,7 @@ const FormBuild = ({
               className='form-control'
               id='formName'
               onChange={nameChange}
-              value={form.formName}
+              value={formBuild.formName}
             />
           </div>
           <button onClick={formSubmitHandler} className='btn btn-success'>
@@ -123,8 +119,8 @@ const FormBuild = ({
     </div>
   );
 };
-const mapStateToProps = ({ formBuild: { form }, ui: { redirect, isAuth } }) => {
-  return { form, redirect, isAuth };
+const mapStateToProps = ({ form: { formBuild }, ui: { redirect, isAuth } }) => {
+  return { formBuild, redirect, isAuth };
 };
 
 export default connect(mapStateToProps, {

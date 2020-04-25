@@ -5,10 +5,10 @@ import {
   CHECK_FORM_VALIDATION,
   CREATE_FORM_FIELD,
   REMOVE_FORM_FIELD,
-} from "../actions/formBuild";
+} from "../actions/form";
 import { checkValidation } from "../../utility";
 const initState = {
-  form: {
+  formBuild: {
     fields: [
       {
         id: 0,
@@ -21,10 +21,10 @@ const initState = {
   },
 };
 
-export default function formBuild(state = initState, action) {
+export default function form(state = initState, action) {
   switch (action.type) {
     case CREATE_FORM_FIELD: {
-      const newFields = [...state.form.fields];
+      const newFields = [...state.formBuild.fields];
       newFields.push({
         id: newFields.length,
         label: { value: "", error: null },
@@ -33,8 +33,8 @@ export default function formBuild(state = initState, action) {
       });
       return {
         ...state,
-        form: {
-          ...state.form,
+        formBuild: {
+          ...state.formBuild,
           fields: [...newFields],
           valid: false,
         },
@@ -42,12 +42,14 @@ export default function formBuild(state = initState, action) {
     }
     case FORM_BUILD_INPUT_CHANGE: {
       const { field, id, value } = action.payload;
-      const newFields = [...state.form.fields];
+      console.log(field, id, value);
+
+      const newFields = [...state.formBuild.fields];
       newFields[field] = { ...newFields[field], [id]: { value } };
       return {
         ...state,
-        form: {
-          ...state.form,
+        formBuild: {
+          ...state.formBuild,
           fields: [...newFields],
         },
       };
@@ -56,8 +58,8 @@ export default function formBuild(state = initState, action) {
       const { value } = action.payload;
       return {
         ...state,
-        form: {
-          ...state.form,
+        formBuild: {
+          ...state.formBuild,
           formName: value,
         },
       };
@@ -65,12 +67,12 @@ export default function formBuild(state = initState, action) {
     case FORM_BUILD_INPUT_VALIDATION: {
       const { field, id, value, validation } = action.payload;
       const error = checkValidation(id, value, validation);
-      const newFields = [...state.form.fields];
+      const newFields = [...state.formBuild.fields];
       newFields[field] = { ...newFields[field], [id]: { value, error } };
       return {
         ...state,
-        form: {
-          ...state.form,
+        formBuild: {
+          ...state.formBuild,
           fields: [...newFields],
         },
       };
@@ -79,7 +81,7 @@ export default function formBuild(state = initState, action) {
     }
     case CHECK_FORM_VALIDATION: {
       let valid = true;
-      state.form.fields.forEach((field) => {
+      state.formBuild.fields.forEach((field) => {
         console.log(field);
         if (
           typeof field.name.error === "string" ||
@@ -93,8 +95,8 @@ export default function formBuild(state = initState, action) {
       });
       return {
         ...state,
-        form: {
-          ...state.form,
+        formBuild: {
+          ...state.formBuild,
           valid,
         },
       };

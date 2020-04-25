@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, compose } from "redux";
 import { reducers } from "./reducers";
 import { api } from "./middlewares/api";
 import { loginMdl } from "./middlewares/login";
-import { formMdl } from "./middlewares/formBuild";
+import { formMdl } from "./middlewares/form";
 import { registerMdl } from "./middlewares/register";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

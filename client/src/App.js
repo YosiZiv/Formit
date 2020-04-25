@@ -9,7 +9,7 @@ import Register from "./components/pages/Register";
 import FormBuild from "./components/pages/FormBuild";
 import { FormsLists } from "./components/pages/FormsLists";
 import { FormsSubmissions } from "./components/pages/FormsSubmissions";
-import { FormSubmission } from "./components/pages/FormSubmission";
+import FormSubmission from "./components/pages/FormSubmission";
 import "./App.css";
 
 function App({ authCheck, isAuth }) {
