@@ -12,7 +12,7 @@ import { FormsSubmissions } from "./components/pages/FormsSubmissions";
 import { FormSubmission } from "./components/pages/FormSubmission";
 import "./App.css";
 
-function App({ authCheck }) {
+function App({ authCheck, isAuth }) {
   useEffect(() => {
     authCheck();
   });
@@ -25,18 +25,20 @@ function App({ authCheck }) {
         <Route path='/formbuild' component={FormBuild} />
         <Route path='/formslists' component={FormsLists} />
         <Route path='/formssubmissions' component={FormsSubmissions} />
-        <Route path='/formsubmission' component={FormSubmission} />
+        <Route path='/form/:id' component={FormSubmission} />
       </Switch>
     </>
   );
+  console.log(isAuth);
+
   return (
     <div className='App'>
-      <NavBar />
+      <NavBar isAuth={isAuth} />
       {routes}
     </div>
   );
 }
-// const mapStateToProps = ({ login: { loginForm } }) => {
-//   return { loginForm };
-// };
-export default connect(null, { authCheck })(App);
+const mapStateToProps = ({ ui: { isAuth } }) => {
+  return { isAuth };
+};
+export default connect(mapStateToProps, { authCheck })(App);

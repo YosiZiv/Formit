@@ -22,20 +22,21 @@ export const checkValidation = (id, value, validation) => {
   return false;
 };
 export const removeErrorFromObjects = (array) => {
+  const newObject = {};
   if (Array.isArray(array)) {
+    //
     return array.map((obj) => {
-      const newObject = {};
       Object.entries(obj).map(([key, value]) => {
         if (typeof value === "object") {
-          newObject[key] = value.value;
+          newObject[key] = value.value; // if value is object get only value leave error field out
         } else {
-          newObject[key] = value;
+          newObject[key] = value; // if value is no object just return value
         }
       });
       return newObject;
     });
   } else if (typeof array === "object") {
-    const newObject = {};
+    // check if function argoument is singel object
     Object.entries(array).map(([key, value]) => {
       if (typeof value === "object") {
         newObject[key] = value.value;

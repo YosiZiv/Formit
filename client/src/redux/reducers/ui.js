@@ -5,11 +5,13 @@ import {
   CLEAR_UI,
   LOADING_START,
   LOADING_FINISH,
+  IS_AUTH,
 } from "../actions/ui";
 const initState = {
   message: null,
   redirect: null,
   loading: false,
+  isAuth: false,
 };
 
 export default function ui(state = initState, action) {
@@ -22,11 +24,15 @@ export default function ui(state = initState, action) {
       console.log("delete message reducer");
       return { ...state, message: null };
     case CLEAR_UI:
-      return { loading: false, message: null, redirect: null };
+      return { ...state, loading: false, message: null, redirect: null };
     case LOADING_START:
       return { ...state, loading: true };
     case LOADING_FINISH:
       return { ...state, loading: false };
+    case IS_AUTH:
+      console.log(action.payload);
+
+      return { ...state, isAuth: action.payload };
     default:
       return state;
   }

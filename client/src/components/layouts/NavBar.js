@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-const NavBar = () => (
+const NavBar = ({ isAuth }) => (
   <nav className='navbar navbar-expand-lg navbar-light bg-light'>
     <a className='navbar-brand'>Formit</a>
     <button
@@ -23,27 +23,34 @@ const NavBar = () => (
         >
           Home <span className='sr-only'>(current)</span>
         </NavLink>
-        <NavLink
-          className='nav-item nav-link'
-          activeClassName='nav-active'
-          to='/login'
-        >
-          Login
-        </NavLink>
-        <NavLink
-          className='nav-item nav-link'
-          activeClassName='nav-active'
-          to='/register'
-        >
-          Register
-        </NavLink>
-        <NavLink
-          className='nav-item nav-link'
-          activeClassName='nav-active'
-          to='/formbuild'
-        >
-          Build Form
-        </NavLink>
+        {!isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/login'
+          >
+            Login
+          </NavLink>
+        )}
+
+        {!isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/register'
+          >
+            Register
+          </NavLink>
+        )}
+        {isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/formbuild'
+          >
+            Build Form
+          </NavLink>
+        )}
         <NavLink
           className='nav-item nav-link disabled'
           activeClassName='nav-active'
