@@ -4,7 +4,7 @@ import {
   FORM_SUBMIT_SUCCESS,
   FORM_SUBMIT_FAIL,
 } from "../actions/formBuild";
-import { setMessage, deleteMessage } from "../actions/ui";
+import { setMessage, deleteMessage, redirect } from "../actions/ui";
 
 const formSubmit = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT) {
@@ -24,10 +24,7 @@ const formSubmit = ({ dispatch }) => (next) => (action) => {
 
 const formSubmitSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT_SUCCESS) {
-    const {
-      payload: { message },
-    } = action;
-    dispatch(setMessage(message));
+    dispatch(redirect("/"));
   }
   next(action);
 };
@@ -36,7 +33,7 @@ const formSubmitFail = ({ dispatch }) => (next) => (action) => {
     const {
       payload: { message },
     } = action;
-    dispatch(setMessage(action));
+    dispatch(setMessage(message));
   }
   next(action);
 };
