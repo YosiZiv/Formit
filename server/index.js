@@ -23,11 +23,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
-  console.log("function 2", res.statusCode, error);
-  // const statusCode = res.statusCode ===, 200 ? 500 : res.statusCode;
-  console.log("function 2", res.statusCode);
   res.status(res.statusCode);
   res.json({
     error: error.message,
