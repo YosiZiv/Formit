@@ -65,9 +65,13 @@ const NavBar = ({ isAuth, logout }) => (
           </NavLink>
         )}
         {isAuth && (
-          <button className='nav-item nav-link' onClick={logout}>
+          <span
+            style={{ cursor: "pointer" }}
+            className='nav-item nav-link'
+            onClick={logout}
+          >
             Logout
-          </button>
+          </span>
         )}
       </div>
     </div>
