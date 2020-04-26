@@ -29,7 +29,7 @@ const SubmissionTable = ({ data }) => {
   return (
     <>
       <div className='table-container'>
-        {data.length && (
+        {data.length ? (
           <table className='form-table'>
             <thead>
               <tr>
@@ -39,6 +39,8 @@ const SubmissionTable = ({ data }) => {
             </thead>
             <tbody>{table.body}</tbody>
           </table>
+        ) : (
+          <div className='text-center m-4'>No Submissions Found</div>
         )}
       </div>
     </>

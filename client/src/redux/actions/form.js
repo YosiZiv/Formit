@@ -15,6 +15,7 @@ export const GET_FORMS_SUCCESS = "[form] Get Forms Success";
 export const GET_FORMS_FAIL = "[form] Get Forms Fail";
 export const SET_FORM = "[form] Set Form";
 export const SET_FORMS = "[form] Set Forms";
+export const CLEAR_FORM_STATE = "[form] Clear Form State";
 export const createFormField = () => ({
   type: CREATE_FORM_FIELD,
 });
@@ -56,5 +57,9 @@ export const setForm = (payload) => ({
 });
 export const setForms = (payload) => ({
   type: SET_FORMS,
+  payload,
+});
+export const clearFormState = (payload) => ({
+  type: CLEAR_FORM_STATE,
   payload,
 });

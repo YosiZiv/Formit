@@ -1,7 +1,7 @@
 import {
   SUBMISSION_INPUT_CHANGE,
   SUBMISSION_INPUT_VALIDATION,
-  SET_SUBMISSION,
+  SET_SUBMISSIONS,
 } from "../actions/submission";
 import { checkValidation } from "../../utility";
 const initState = {
@@ -48,10 +48,12 @@ export default function submission(state = initState, action) {
         },
       };
     }
-    case SET_SUBMISSION: {
+    case SET_SUBMISSIONS: {
+      console.log(action.payload);
+
       return {
         ...state,
-        submission: action.payload.data,
+        submissions: action.payload,
       };
     }
     default:

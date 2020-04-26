@@ -13,7 +13,7 @@ import FormSubmission from "./components/pages/FormSubmission";
 import { logout } from "./redux/actions/login";
 import "./App.css";
 
-function App({ authCheck, isAuth, redirect }) {
+function App({ authCheck, isAuth, redirect, logout }) {
   useEffect(() => {
     !isAuth && authCheck();
   }, []);

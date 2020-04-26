@@ -10,6 +10,7 @@ import {
   formBuildInputValidation,
   formSubmit,
   formCheckValidation,
+  clearFormState,
 } from "../../redux/actions/form";
 import { clearUi } from "../../redux/actions/ui";
 import FormField from "../layouts/FormField";
@@ -24,12 +25,13 @@ const FormBuild = ({
   formSubmit,
   createFormField,
   redirect,
-  isAuth,
   clearUi,
+  clearFormState,
 }) => {
   useEffect(
     () => () => {
       clearUi();
+      clearFormState();
     },
     []
   );
@@ -150,4 +152,5 @@ export default connect(mapStateToProps, {
   formSubmit,
   createFormField,
   clearUi,
+  clearFormState,
 })(FormBuild);

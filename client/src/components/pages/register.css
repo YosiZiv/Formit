@@ -17,6 +17,13 @@
 .register-header h1 {
   font-size: 30px;
 }
+.register-complate {
+  display: flex;
+  justify-content: center;
+}
+.register-complate button {
+  padding: 10px 20px;
+}
 @media screen and (min-width: 600px) {
   .register-form-wrapper {
     width: 40%;

@@ -1,5 +1,6 @@
 import { apiRequest } from "../actions/api";
 import {
+  setRegister,
   USER_REGISTER,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
@@ -23,7 +24,7 @@ const userRegister = ({ dispatch }) => (next) => (action) => {
 };
 const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER_SUCCESS) {
-    dispatch(redirect("/"));
+    dispatch(setRegister(true));
   }
   next(action);
 };

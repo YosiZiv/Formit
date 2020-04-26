@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import "./register.css";
 import {
   registerInputChange,
@@ -17,6 +18,7 @@ const Register = ({
   registerInputValidation,
   registerForm,
   userRegister,
+  registerFinish,
   message,
   loading,
   redirect,
@@ -46,103 +48,116 @@ const Register = ({
     const data = removeErrorFromObjects(registerForm);
     userRegister(data);
   };
+  console.log(registerFinish);
+
   return (
     <div className='register-container'>
-      <div className='register-form-wrapper'>
-        <div className='register-header'>
-          <h1>Register </h1>
-        </div>
-        <div className='register-form'>
-          <form>
-            <Input
-              id='name'
-              name='Name'
-              type='text'
-              error={registerForm.name?.error}
-              required
-              value={registerForm.name?.value ?? ""}
-              onChange={handleInputChange}
-              onBlur={(e) =>
-                handleInputFocus(e, {
-                  isRequired: true,
-                  minLength: 2,
-                  maxLength: 30,
-                })
-              }
-            />
-            <Input
-              id='email'
-              name='Email'
-              type='email'
-              error={registerForm.email?.error}
-              required
-              value={registerForm.email?.value ?? ""}
-              onChange={handleInputChange}
-              onBlur={(e) =>
-                handleInputFocus(e, {
-                  isRequired: true,
-                  isEmail: true,
-                })
-              }
-            />
-            <Input
-              id='password'
-              name='Password'
-              type='password'
-              error={registerForm.password?.error}
-              required
-              value={registerForm.password?.value ?? ""}
-              onChange={handleInputChange}
-              onBlur={(e) =>
-                handleInputFocus(e, "password", {
-                  isRequired: true,
-                  minLength: 6,
-                  maxLength: 30,
-                })
-              }
-            />
-            <Input
-              id='passwordConfirm'
-              name='Password Confirm'
-              type='password'
-              error={registerForm.passwordConfirm?.error}
-              required
-              value={registerForm.passwordConfirm?.value ?? ""}
-              onChange={handleInputChange}
-              onBlur={(e) =>
-                handleInputFocus(e, "passwordConfirm", {
-                  isRequired: true,
-                  minLength: 6,
-                  maxLength: 30,
-                })
-              }
-            />
-            <div className='mt-5 text-center'>
-              <button
-                disabled={loading}
-                onClick={handleFormSubmit}
-                type='button'
-                className='btn btn-primary w-25'
-              >
-                Register
-              </button>
-            </div>
-          </form>
+      {!registerFinish ? (
+        <div className='register-form-wrapper'>
+          <div className='register-header'>
+            <h1>Register </h1>
+          </div>
+          <div className='register-form'>
+            <form>
+              <Input
+                id='name'
+                name='Name'
+                type='text'
+                error={registerForm.name?.error}
+                required
+                value={registerForm.name?.value ?? ""}
+                onChange={handleInputChange}
+                onBlur={(e) =>
+                  handleInputFocus(e, {
+                    isRequired: true,
+                    minLength: 2,
+                    maxLength: 30,
+                  })
+                }
+              />
+              <Input
+                id='email'
+                name='Email'
+                type='email'
+                error={registerForm.email?.error}
+                required
+                value={registerForm.email?.value ?? ""}
+                onChange={handleInputChange}
+                onBlur={(e) =>
+                  handleInputFocus(e, {
+                    isRequired: true,
+                    isEmail: true,
+                  })
+                }
+              />
+              <Input
+                id='password'
+                name='Password'
+                type='password'
+                error={registerForm.password?.error}
+                required
+                value={registerForm.password?.value ?? ""}
+                onChange={handleInputChange}
+                onBlur={(e) =>
+                  handleInputFocus(e, "password", {
+                    isRequired: true,
+                    minLength: 6,
+                    maxLength: 30,
+                  })
+                }
+              />
+              <Input
+                id='passwordConfirm'
+                name='Password Confirm'
+                type='password'
+                error={registerForm.passwordConfirm?.error}
+                required
+                value={registerForm.passwordConfirm?.value ?? ""}
+                onChange={handleInputChange}
+                onBlur={(e) =>
+                  handleInputFocus(e, "passwordConfirm", {
+                    isRequired: true,
+                    minLength: 6,
+                    maxLength: 30,
+                  })
+                }
+              />
+              <div className='mt-5 text-center'>
+                <button
+                  disabled={loading}
+                  onClick={handleFormSubmit}
+                  type='button'
+                  className='btn btn-primary w-25'
+                >
+                  Register
+                </button>
+              </div>
+            </form>
 
-          {loading && <Spinner />}
-          {message && (
-            <div className='register-message text-center'>{message} </div>
-          )}
+            {loading && <Spinner />}
+            {message && (
+              <div className='register-message text-center'>{message} </div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div>
+          <h2 className='text-center m-5'>Register Complete Thanks!!</h2>
+          <div className='register-complate'>
+            <NavLink to='/login'>
+              <button className='btn btn-success text-center'>Login</button>
+            </NavLink>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 const mapStateToProps = ({
-  register: { registerForm },
+  register: { registerForm, registerFinish },
   ui: { message, loading, redirect },
 }) => {
-  return { registerForm, message, loading, redirect };
+  return { registerForm, registerFinish, message, loading, redirect };
 };
 
 export default connect(mapStateToProps, {

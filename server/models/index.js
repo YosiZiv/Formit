@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { MongoURI } = require("../env");
+const { MONGO_URI } = require("../env");
 
 // DB Config key (credentials)
 
@@ -14,7 +14,7 @@ const connectionSettings = {
 };
 // Connect to MongoDB
 mongoose
-  .connect(MongoURI, connectionSettings)
+  .connect(MONGO_URI, connectionSettings)
   .then(
     () => console.log("DB cluster connected..."),
     (err) => {

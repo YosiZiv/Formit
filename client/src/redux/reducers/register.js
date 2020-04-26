@@ -1,4 +1,5 @@
 import {
+  SET_REGISTER,
   REGISTER_INPUT_CHANGE,
   REGISTER_INPUT_VALIDATION,
   CLEAR_REGISTER_STATE,
@@ -11,6 +12,7 @@ const initState = {
     password: { value: "", error: false },
     passwordConfirm: { value: "", error: false },
   },
+  registerFinish: false,
 };
 
 export default function login(state = initState, action) {
@@ -51,6 +53,13 @@ export default function login(state = initState, action) {
           password: { value: "", error: false },
           passwordConfirm: { value: "", error: false },
         },
+        registerFinish: false,
+      };
+    }
+    case SET_REGISTER: {
+      return {
+        ...state,
+        registerFinish: action.payload,
       };
     }
     default:

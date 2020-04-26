@@ -25,7 +25,7 @@ const Table = ({ data }) => {
                   activeClassName='nav-active'
                   to={`/form/${item._id}`}
                 >
-                  GO
+                  Submit
                 </NavLink>
               </td>
             );
@@ -38,7 +38,7 @@ const Table = ({ data }) => {
                   activeClassName='nav-active'
                   to={`/submissions/${item._id}`}
                 >
-                  GO
+                  Submissions
                 </NavLink>
               </td>
             );
