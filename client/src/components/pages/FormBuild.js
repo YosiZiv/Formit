@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import "./formBuild.css";
+import Input from "../layouts/Input";
 import {
   createFormField,
   formBuildInputChange,
@@ -35,7 +36,9 @@ const FormBuild = ({
 
   const inputChange = (event) => {
     const { value, id } = event.currentTarget;
-    const { id: field } = event.currentTarget.parentNode.parentNode;
+    const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
+    console.log(field, id, value);
+
     formBuildInputChange({ field, id, value });
   };
   const nameChange = (event) => {
@@ -44,7 +47,8 @@ const FormBuild = ({
   };
   const inputFocus = (event, validation) => {
     const { value, id } = event.currentTarget;
-    const { id: field } = event.currentTarget.parentNode.parentNode;
+    const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
+
     formBuildInputValidation({ field, id, value, validation });
     formCheckValidation();
   };
@@ -60,12 +64,17 @@ const FormBuild = ({
     formSubmit(payload);
   };
   const form = formBuild.fields?.length
-    ? formBuild.fields.map((field) => {
+    ? formBuild.fields.map((field, index) => {
+        console.log(field);
+
         const { id, label, name, type } = field;
+        console.log(id);
+
         return (
           <FormField
-            key={id}
-            id={id}
+            key={index}
+            index={index}
+            id={index}
             label={label}
             name={name}
             type={type}
@@ -85,37 +94,47 @@ const FormBuild = ({
     <div className='form-build-container'>
       {!localStorage.getItem("token") ||
         (redirect && <Redirect to={redirect} />)}
-      <div className='form-build-header text-center m-3'>
-        <h1>Build New Form</h1>
-      </div>
-      <div className='form-build-main'>
-        <div className='form-build-new m-3'>
-          {formBuild.fields.length < 10 ? (
-            <button onClick={createFormField} className='btn btn-success'>
-              New Input
-            </button>
-          ) : (
-            <small className='text-danger'>Max </small>
-          )}
+      <div className='form-build-wrapper'>
+        <div className='form-build-header'>
+          <h1>Build New Form</h1>
         </div>
-        <div className='form-build-field'>{form}</div>
-      </div>
-      {formBuild.valid ? (
-        <div className='form-build-submit d-flex'>
-          <div>
-            <label>Enter Form Name</label>
-            <input
-              className='form-control'
-              id='formName'
-              onChange={nameChange}
-              value={formBuild.formName}
-            />
+        <div className='form-build-main'>
+          <div className='form-build-new'>
+            {formBuild.fields.length < 10 ? (
+              <button onClick={createFormField} className='btn btn-success'>
+                New Input
+              </button>
+            ) : (
+              <small className='text-danger'>Max </small>
+            )}
           </div>
-          <button onClick={formSubmitHandler} className='btn btn-success'>
-            Create
-          </button>
+          <div className='form-build-fields'>{form}</div>
         </div>
-      ) : null}
+        {formBuild.valid ? (
+          <div className='form-build-submit d-flex'>
+            <Input
+              id='formBuild'
+              name='Form Name'
+              onChange={nameChange}
+              value={formBuild.name}
+            />
+            {/* <div>
+              <label>Enter Form Name</label>
+              <input
+                className='form-control'
+                id='formName'
+                onChange={nameChange}
+                value={formBuild.formName}
+              />
+            </div> */}
+            <div className='form-build-submit'>
+              <button onClick={formSubmitHandler} className='btn btn-success'>
+                Create
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import {
   CREATE_FORM_FIELD,
   REMOVE_FORM_FIELD,
   SET_FORMS,
+  SET_FORM,
 } from "../actions/form";
 import { checkValidation } from "../../utility";
 const initState = {
@@ -18,6 +19,10 @@ const initState = {
         type: "text",
       },
     ],
+    formName: "",
+  },
+  form: {
+    fields: [],
     formName: "",
   },
   forms: [],
@@ -104,6 +109,12 @@ export default function form(state = initState, action) {
       return {
         ...state,
         forms: action.payload,
+      };
+    }
+    case SET_FORM: {
+      return {
+        ...state,
+        form: action.payload,
       };
     }
     default:

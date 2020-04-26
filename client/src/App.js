@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authCheck } from "./redux/actions/login";
 import NavBar from "./components/layouts/NavBar";
@@ -10,9 +10,10 @@ import FormBuild from "./components/pages/FormBuild";
 import Forms from "./components/pages/Forms";
 import Submissions from "./components/pages/Submissions";
 import FormSubmission from "./components/pages/FormSubmission";
+import { logout } from "./redux/actions/login";
 import "./App.css";
 
-function App({ authCheck, isAuth }) {
+function App({ authCheck, isAuth, redirect }) {
   useEffect(() => {
     !isAuth && authCheck();
   }, []);
@@ -30,12 +31,13 @@ function App({ authCheck, isAuth }) {
 
   return (
     <div className='App'>
-      <NavBar isAuth={isAuth} />
+      <Redirect to={redirect} />
+      <NavBar logout={logout} isAuth={isAuth} />
       {routes}
     </div>
   );
 }
-const mapStateToProps = ({ ui: { isAuth } }) => {
+const mapStateToProps = ({ ui: { isAuth, redirect } }) => {
   return { isAuth };
 };
-export default connect(mapStateToProps, { authCheck })(App);
+export default connect(mapStateToProps, { authCheck, logout })(App);

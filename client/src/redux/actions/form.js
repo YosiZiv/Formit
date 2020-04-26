@@ -13,6 +13,7 @@ export const GET_FORM_FAIL = "[form] Get Form Fail";
 export const GET_FORMS = "[form] Get Forms";
 export const GET_FORMS_SUCCESS = "[form] Get Forms Success";
 export const GET_FORMS_FAIL = "[form] Get Forms Fail";
+export const SET_FORM = "[form] Set Form";
 export const SET_FORMS = "[form] Set Forms";
 export const createFormField = () => ({
   type: CREATE_FORM_FIELD,
@@ -47,6 +48,10 @@ export const getForm = (payload) => ({
 });
 export const getForms = (payload) => ({
   type: GET_FORMS,
+  payload,
+});
+export const setForm = (payload) => ({
+  type: SET_FORM,
   payload,
 });
 export const setForms = (payload) => ({

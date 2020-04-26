@@ -2,6 +2,7 @@ import React from "react";
 import "./table.css";
 const SubmissionTable = ({ data }) => {
   let table;
+  console.log(data);
 
   const createTable = (data) => {
     if (data.length) {

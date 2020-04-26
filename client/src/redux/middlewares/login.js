@@ -83,6 +83,7 @@ const userLogout = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_LOGOUT) {
     localStorage.removeItem("token");
     localStorage.removeItem("expiresIn");
+    dispatch(isAuth(false));
     return dispatch(redirect("/"));
   }
   next(action);

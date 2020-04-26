@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import "./formSubmission.css";
 import { getForm } from "../../redux/actions/form";
 import {
   submissionInputChange,
   submissionInputValidation,
   newSubmission,
 } from "../../redux/actions/submission";
-import SubmissionField from "../layouts/SubmissionField";
+import Input from "../layouts/Input";
 import { removeErrorFromObjects } from "../../utility";
 const FormSubmission = ({
   getForm,
@@ -23,15 +24,15 @@ const FormSubmission = ({
     getForm(formId);
   }, []);
   const inputChange = (event) => {
-    const { value, id } = event.currentTarget;
-    const { id: field } = event.currentTarget.parentNode;
+    const { value, id, name } = event.currentTarget;
 
-    submissionInputChange({ field, id, value });
+    console.log(name, id, value);
+
+    submissionInputChange({ id, name, value });
   };
   const inputFocus = (event, validation) => {
-    const { value, id } = event.currentTarget;
-    const { id: field } = event.currentTarget.parentNode;
-    submissionInputValidation({ field, id, value, validation });
+    const { name, value, id } = event.currentTarget;
+    submissionInputValidation({ id, name, value, validation });
   };
   const handleFormSubmit = () => {
     const filterFields = {
@@ -44,12 +45,14 @@ const FormSubmission = ({
   };
   const submissionForm = form.fields?.length ? (
     form.fields.map((field, index) => {
+      console.log(field);
+
       const { label, type } = field;
       return (
-        <SubmissionField
+        <Input
           key={index}
           id={index}
-          label={label}
+          name={field.name}
           type={type}
           error={submission.fields[index]?.value?.error}
           value={submission.fields[index]?.value.value ?? ""}
@@ -67,32 +70,36 @@ const FormSubmission = ({
   ) : (
     <div>Form didn't found</div>
   );
+  console.log(form);
 
   return (
     <div className='form-submit-container'>
-      <div className='form-submit-name text-center'>
-        <h2>{form.formName}</h2>
-      </div>
-      <div className='form-submit-body'>
-        {submissionForm}
-        {form.fields.length ? (
-          <div className='mt-2 text-center'>
-            <button
-              disabled={loading}
-              onClick={handleFormSubmit}
-              type='button'
-              className='btn btn-success w-25'
-            >
-              Submit
-            </button>
-          </div>
-        ) : null}
+      <div className='form-submit-wrapper'>
+        <div className='form-submit-header'>
+          <h2>{form.formName}</h2>
+        </div>
+        <div className='form-submit-body'>
+          {submissionForm}
+          {form.fields.length ? (
+            <div className='mt-2 text-center'>
+              <button
+                disabled={loading}
+                onClick={handleFormSubmit}
+                type='button'
+                className='btn btn-success w-25'
+              >
+                Submit
+              </button>
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
 };
 const mapStateToProps = ({
-  submission: { form, submission },
+  form: { form },
+  submission: { submission },
   ui: { redirect, isAuth, loading },
 }) => {
   return { form, submission, loading };

@@ -1,5 +1,6 @@
 import { apiRequest } from "../actions/api";
 import {
+  setForm,
   setForms,
   FORM_SUBMIT,
   FORM_SUBMIT_SUCCESS,
@@ -11,8 +12,8 @@ import {
   GET_FORMS_SUCCESS,
   GET_FORMS_FAIL,
 } from "../actions/form";
-import { setMessage, redirect } from "../actions/ui";
 import { setSubmission } from "../actions/submission";
+import { setMessage, redirect } from "../actions/ui";
 const formSubmit = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT) {
     const URL = "/form";
@@ -31,7 +32,7 @@ const formSubmit = ({ dispatch }) => (next) => (action) => {
 
 const formSubmitSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT_SUCCESS) {
-    dispatch(redirect("/formslists"));
+    dispatch(redirect("/forms"));
   }
   next(action);
 };
@@ -57,12 +58,15 @@ const getForm = ({ dispatch }) => (next) => (action) => {
 
 const getFormSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORM_SUCCESS) {
-    dispatch(setSubmission(action.payload.data));
+    console.log(action.payload);
+
+    return dispatch(setForm(action.payload.data));
   }
   next(action);
 };
 const getFormFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORM_FAIL) {
+    return false;
   }
   next(action);
 };
@@ -78,12 +82,13 @@ const getForms = ({ dispatch }) => (next) => (action) => {
 
 const getFormsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORMS_SUCCESS) {
-    dispatch(setForms(action.payload.data));
+    return dispatch(setForms(action.payload.data));
   }
   next(action);
 };
 const getFormsFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORMS_FAIL) {
+    return dispatch(setMessage(action.payload));
   }
   next(action);
 };

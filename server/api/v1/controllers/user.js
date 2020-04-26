@@ -45,7 +45,7 @@ exports.getAllFormsByUserId = async (req, res) => {
   try {
     const forms = await Form.find({ user: userId });
     if (!Object.keys(forms).length)
-      return res.status(204).json({ message: "There is no any forms yet" });
+      return res.status(400).json({ error: "There is no any forms yet" });
     res.status(200).json({ data: forms });
   } catch (error) {
     res.status(400).json({ error });

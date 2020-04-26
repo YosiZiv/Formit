@@ -1,7 +1,7 @@
 import {
-  SET_SUBMISSION,
   SUBMISSION_INPUT_CHANGE,
   SUBMISSION_INPUT_VALIDATION,
+  SET_SUBMISSION,
 } from "../actions/submission";
 import { checkValidation } from "../../utility";
 const initState = {
@@ -19,9 +19,13 @@ const initState = {
 export default function submission(state = initState, action) {
   switch (action.type) {
     case SUBMISSION_INPUT_CHANGE: {
-      const { field, id, value } = action.payload;
+      const { id, name, value } = action.payload;
+      console.log(id, name);
+
       const newFields = [...state.submission.fields];
-      newFields[field] = { name: id, value: { value } };
+      newFields[id] = { name, value: { value } };
+      console.log("IMPORTENT", newFields);
+
       return {
         ...state,
         submission: {
@@ -47,7 +51,7 @@ export default function submission(state = initState, action) {
     case SET_SUBMISSION: {
       return {
         ...state,
-        submissions: action.payload,
+        submission: action.payload.data,
       };
     }
     default:

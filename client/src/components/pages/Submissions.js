@@ -7,6 +7,7 @@ const FormsSubmissions = ({ match, getSubmissions, submissions }) => {
     const formId = match.params?.id;
     formId && getSubmissions(formId);
   }, []);
+
   return (
     <div className='forms-container'>
       <h1>SUBMISSION PAGE</h1>

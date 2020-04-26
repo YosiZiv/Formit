@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-const NavBar = ({ isAuth }) => (
+const NavBar = ({ isAuth, logout }) => (
   <nav className='navbar navbar-expand-lg navbar-light bg-light'>
     <NavLink to='/'>
       <span className='navbar-brand'>Formit</span>
@@ -44,6 +44,30 @@ const NavBar = ({ isAuth }) => (
           >
             Forms
           </NavLink>
+        )}
+        {!isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/login'
+          >
+            Login
+          </NavLink>
+        )}
+
+        {!isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/register'
+          >
+            Register
+          </NavLink>
+        )}
+        {isAuth && (
+          <button className='nav-item nav-link' onClick={logout}>
+            Logout
+          </button>
         )}
       </div>
     </div>
