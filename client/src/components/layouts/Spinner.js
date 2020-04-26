@@ -1,8 +1,8 @@
 import React from "react";
 
 const Spinner = () => (
-  <div class='d-flex justify-content-center'>
-    <div className='spinner-border text-primary text-center m-5' role='status'>
+  <div className='d-flex justify-content-center'>
+    <div className='spinner-border text-primary text-center m-5'>
       <span className='sr-only'>Loading...</span>
     </div>
   </div>

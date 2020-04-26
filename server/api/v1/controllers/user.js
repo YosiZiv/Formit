@@ -1,4 +1,4 @@
-const { User } = require("../../../models/index");
+const { User, Form } = require("../../../models/index");
 const bcrypt = require("bcryptjs");
 
 exports.createUser = async (req, res) => {
@@ -37,5 +37,22 @@ exports.createUser = async (req, res) => {
     });
   } catch (e) {
     return res.status(401).json({ error: "someting went wrong :/" });
+  }
+};
+exports.getAllFormsByUserId = async (req, res) => {
+  const {
+    decoded: {
+      $__: { _id: userId },
+    },
+  } = req;
+  try {
+    const forms = await Form.find({ user: userId });
+    console.log("get all forms funcrion work ", forms);
+
+    if (!Object.keys(forms).length)
+      return res.status(204).json({ message: "There is no any forms yet" });
+    res.status(200).json({ data: forms });
+  } catch (error) {
+    res.status(400).json({ error });
   }
 };

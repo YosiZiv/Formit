@@ -22,23 +22,35 @@ export const checkValidation = (id, value, validation) => {
   return false;
 };
 export const removeErrorFromObjects = (array) => {
-  const newObject = {};
   if (Array.isArray(array)) {
-    //
-    return array.map((obj) => {
+    const newArray = array.map((obj) => {
+      const newObject = {};
+      console.log(obj);
+
       Object.entries(obj).map(([key, value]) => {
-        if (typeof value === "object") {
+        console.log(key, value);
+
+        if (typeof value === "object" && !Array.isArray(value)) {
+          console.log("function second step", value);
           newObject[key] = value.value; // if value is object get only value leave error field out
         } else {
+          console.log("function second step", value);
           newObject[key] = value; // if value is no object just return value
         }
       });
+      console.log(newObject);
+
       return newObject;
     });
+    console.log(newArray);
+
+    return newArray;
   } else if (typeof array === "object") {
+    console.log("IS THIS HIIIT");
     // check if function argoument is singel object
+    const newObject = {};
     Object.entries(array).map(([key, value]) => {
-      if (typeof value === "object") {
+      if (typeof value === "object" && !Array.isArray(value)) {
         newObject[key] = value.value;
       } else {
         newObject[key] = value;

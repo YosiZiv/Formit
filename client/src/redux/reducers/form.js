@@ -5,6 +5,7 @@ import {
   CHECK_FORM_VALIDATION,
   CREATE_FORM_FIELD,
   REMOVE_FORM_FIELD,
+  SET_FORMS,
 } from "../actions/form";
 import { checkValidation } from "../../utility";
 const initState = {
@@ -19,6 +20,7 @@ const initState = {
     ],
     formName: "",
   },
+  forms: [],
 };
 
 export default function form(state = initState, action) {
@@ -99,6 +101,14 @@ export default function form(state = initState, action) {
           ...state.formBuild,
           valid,
         },
+      };
+    }
+    case SET_FORMS: {
+      console.log("REDUCER SET FORM ", action.payload);
+
+      return {
+        ...state,
+        forms: action.payload,
       };
     }
     default:

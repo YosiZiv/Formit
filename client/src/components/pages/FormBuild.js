@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import "./formBuild.css";
 import {
   createFormField,
@@ -31,9 +32,7 @@ const FormBuild = ({
     },
     []
   );
-  console.log(redirect);
-  !localStorage.getItem("token") && history.push("/");
-  redirect && history.push(redirect);
+
   const inputChange = (event) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode;
@@ -46,22 +45,47 @@ const FormBuild = ({
   const inputFocus = (event, validation) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode;
-    console.log(field, id, value, validation);
     formBuildInputValidation({ field, id, value, validation });
     formCheckValidation();
   };
   const formSubmitHandler = () => {
     const { formName, fields } = formBuild;
+
     const newArray = removeErrorFromObjects(fields);
+
     const payload = {
       formName,
       fields: newArray,
     };
-    formSubmit({ ...payload });
+    console.log("IMPORTTENT UPDATE", newArray);
+    formSubmit(payload);
   };
-
+  const form = formBuild.fields?.length
+    ? formBuild.fields.map((field) => {
+        const { id, label, name, type } = field;
+        return (
+          <FormField
+            key={id}
+            id={id}
+            label={label}
+            name={name}
+            type={type}
+            onBlur={(e) =>
+              inputFocus(e, {
+                isRequired: true,
+                minLength: 2,
+                maxLength: 15,
+              })
+            }
+            onChange={inputChange}
+          />
+        );
+      })
+    : null;
   return (
     <div className='form-build-container'>
+      {!localStorage.getItem("token") ||
+        (redirect && <Redirect to={redirect} />)}
       <div className='form-build-header text-center m-3'>
         <h1>Build New Form</h1>
       </div>
@@ -75,30 +99,7 @@ const FormBuild = ({
             <small className='text-danger'>Max </small>
           )}
         </div>
-        <div className='form-build-field'>
-          {formBuild.fields?.length
-            ? formBuild.fields.map((field) => {
-                const { id, label, name, type } = field;
-                return (
-                  <FormField
-                    key={id}
-                    id={id}
-                    label={label}
-                    name={name}
-                    type={type}
-                    onBlur={(e) =>
-                      inputFocus(e, {
-                        isRequired: true,
-                        minLength: 2,
-                        maxLength: 15,
-                      })
-                    }
-                    onChange={inputChange}
-                  />
-                );
-              })
-            : []}
-        </div>
+        <div className='form-build-field'>{form}</div>
       </div>
       {formBuild.valid ? (
         <div className='form-build-submit d-flex'>

@@ -43,7 +43,10 @@ const Register = ({
     registerInputValidation({ id, value, validation });
   };
   const handleFormSubmit = async () => {
+    console.log(registerForm);
+
     const data = removeErrorFromObjects(registerForm);
+    console.log(data, registerForm);
     userRegister(data);
   };
   return (

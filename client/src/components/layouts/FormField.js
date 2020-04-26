@@ -2,8 +2,6 @@ import React from "react";
 import "./formField.css";
 import Select from "./SelectInput";
 const FormField = ({ id, label, name, type, onChange, onBlur }) => {
-  console.log(id, label, name, type);
-  console.log(label.error, name.error);
   const labelClass = label.error ? "form-control is-invalid" : "form-control";
   const nameClass = name.error ? "form-control is-invalid" : "form-control";
   return (

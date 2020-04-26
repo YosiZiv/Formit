@@ -10,7 +10,6 @@ export const setMessage = (payload) => ({
   payload,
 });
 export const deleteMessage = () => {
-  console.log("delete message action");
   return {
     type: DELETE_MESSAGE,
   };

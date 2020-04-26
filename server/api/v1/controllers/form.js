@@ -24,6 +24,8 @@ exports.createForm = async (req, res) => {
 exports.getFormById = async (req, res) => {
   // START UP CREATE FUNCTION FOR Form refactored later
   const formId = req.params.id;
+  console.log("functin work ", formId);
+
   try {
     // add inputs validation on server side
     //for now mongodb validation is working fine
@@ -35,5 +37,17 @@ exports.getFormById = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(400).json({ message: "validation failed" });
+  }
+};
+
+exports.deleteForm = async (req, res) => {
+  const {
+    params: { id: formId },
+  } = req;
+  try {
+    const formToRemove = await Form.findByIdAndDelete({ _id: formId });
+    return res.status(200).json({ message: "Form Deleted Successfully" });
+  } catch (error) {
+    if (error) return res.status(400).json({ error });
   }
 };

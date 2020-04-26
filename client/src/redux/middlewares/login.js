@@ -28,11 +28,10 @@ const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
 const userAuthCheck = ({ dispatch }) => (next) => (action) => {
   if (action.type === AUTH_CHECK) {
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("is redux work currect?");
+    console.log("i WORK WAY TO FAST FOR YOU");
 
-      dispatch(isAuth(false));
-      return dispatch(logout());
+    if (!token) {
+      return dispatch(isAuth(false));
     } else {
       const date = new Date();
       const expiresIn = new Date(localStorage.getItem("expiresIn"));
@@ -40,8 +39,7 @@ const userAuthCheck = ({ dispatch }) => (next) => (action) => {
         dispatch(isAuth(true));
         return dispatch(checkExpiresIn({ expiresIn }));
       } else {
-        dispatch(isAuth(false));
-        return dispatch(logout());
+        return dispatch(isAuth(false));
       }
     }
   }
@@ -79,7 +77,6 @@ const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
 };
 const userLoginFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_LOGIN_FAIL) {
-    console.log(action.payload);
     return dispatch(setMessage(action.payload));
   }
   next(action);

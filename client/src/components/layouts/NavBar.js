@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 const NavBar = ({ isAuth }) => (
   <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-    <a className='navbar-brand'>Formit</a>
+    <NavLink to='/'>
+      <span className='navbar-brand'>Formit</span>
+    </NavLink>
     <button
       className='navbar-toggler'
       type='button'
@@ -18,30 +20,13 @@ const NavBar = ({ isAuth }) => (
       <div className='navbar-nav'>
         <NavLink
           activeClassName='nav-active'
+          exact
           to='/'
           className='nav-item nav-link active'
         >
           Home <span className='sr-only'>(current)</span>
         </NavLink>
-        {!isAuth && (
-          <NavLink
-            className='nav-item nav-link'
-            activeClassName='nav-active'
-            to='/login'
-          >
-            Login
-          </NavLink>
-        )}
 
-        {!isAuth && (
-          <NavLink
-            className='nav-item nav-link'
-            activeClassName='nav-active'
-            to='/register'
-          >
-            Register
-          </NavLink>
-        )}
         {isAuth && (
           <NavLink
             className='nav-item nav-link'
@@ -51,13 +36,15 @@ const NavBar = ({ isAuth }) => (
             Build Form
           </NavLink>
         )}
-        <NavLink
-          className='nav-item nav-link disabled'
-          activeClassName='nav-active'
-          to='/'
-        >
-          Disabled
-        </NavLink>
+        {isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/forms'
+          >
+            Forms
+          </NavLink>
+        )}
       </div>
     </div>
   </nav>

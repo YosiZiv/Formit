@@ -11,7 +11,6 @@ import {
 import { deleteMessage, clearUi } from "../../redux/actions/ui";
 import Spinner from "../layouts/Spinner";
 const Login = ({
-  history,
   loginForm,
   loginInputChange,
   loginInputValidation,
@@ -30,34 +29,30 @@ const Login = ({
     },
     []
   );
-  redirect && history.push(redirect);
+
   const handleInputChange = (event, id) => {
     const { value } = event.currentTarget;
-    console.log(id, value);
+
     if (message) {
-      console.log("message found", message);
       deleteMessage();
     }
     loginInputChange({ id, value });
   };
   const handleInputFocus = (event, id, validation) => {
-    console.log(event, id, validation);
     const { value } = event.currentTarget;
 
     loginInputValidation({ id, value, validation });
   };
   const handleFormSubmit = async () => {
-    console.log(loginForm);
     const payload = {
       email: loginForm.email.value,
       password: loginForm.password.value,
     };
     userLogin(payload);
   };
-  console.log(message);
-
   return (
     <div className='login-container'>
+      {redirect && <Redirect to={redirect} />}
       <div className='login-header mt-2 text-center'>
         <h1>Login</h1>
       </div>

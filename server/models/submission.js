@@ -25,7 +25,7 @@ const SubmissionSchema = new Schema({
     required: true,
     maxlength: 30,
   },
-  values: {
+  fields: {
     type: [
       {
         name: { type: String, required: true, maxlength: 30 },

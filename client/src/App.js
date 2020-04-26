@@ -7,29 +7,26 @@ import Main from "./components/pages/Main";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import FormBuild from "./components/pages/FormBuild";
-import { FormsLists } from "./components/pages/FormsLists";
-import { FormsSubmissions } from "./components/pages/FormsSubmissions";
+import Forms from "./components/pages/Forms";
+import Submissions from "./components/pages/Submissions";
 import FormSubmission from "./components/pages/FormSubmission";
 import "./App.css";
 
 function App({ authCheck, isAuth }) {
   useEffect(() => {
-    authCheck();
-  });
+    !isAuth && authCheck();
+  }, []);
   const routes = (
-    <>
-      <Switch>
-        <Route path='/' component={Main} exact />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-        <Route path='/formbuild' component={FormBuild} />
-        <Route path='/formslists' component={FormsLists} />
-        <Route path='/formssubmissions' component={FormsSubmissions} />
-        <Route path='/form/:id' component={FormSubmission} />
-      </Switch>
-    </>
+    <Switch>
+      <Route path='/' component={Main} exact />
+      <Route path='/login' component={Login} />
+      <Route path='/register' component={Register} />
+      <Route path='/formbuild' component={FormBuild} />
+      <Route path='/forms' component={Forms} />
+      <Route path='/submissions/:id' component={Submissions} />
+      <Route path='/form/:id' component={FormSubmission} />
+    </Switch>
   );
-  console.log(isAuth);
 
   return (
     <div className='App'>
