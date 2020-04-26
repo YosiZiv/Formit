@@ -28,6 +28,7 @@ const newSubmission = ({ dispatch }) => (next) => (action) => {
 
 const newSubmissionSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === NEW_SUBMISSION_SUCCESS) {
+    dispatch(redirect("/"));
   }
   next(action);
 };

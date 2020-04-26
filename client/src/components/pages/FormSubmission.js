@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import "./formSubmission.css";
 import { getForm } from "../../redux/actions/form";
 import {
@@ -18,6 +19,7 @@ const FormSubmission = ({
   submissionInputValidation,
   newSubmission,
   loading,
+  redirect,
 }) => {
   useEffect(() => {
     const formId = match.params.id;
@@ -67,6 +69,7 @@ const FormSubmission = ({
   );
   return (
     <div className='form-submit-container'>
+      {redirect && <Redirect to='/' />}
       <div className='form-submit-wrapper'>
         <div className='form-submit-header'>
           <h2>{form.formName}</h2>
@@ -95,7 +98,7 @@ const mapStateToProps = ({
   submission: { submission },
   ui: { redirect, isAuth, loading },
 }) => {
-  return { form, submission, loading };
+  return { form, submission, loading, redirect };
 };
 
 export default connect(mapStateToProps, {
