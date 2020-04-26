@@ -1,7 +1,0 @@
-version: "3"
-services:
-  twitter-server:
-    container_name: twitter-server
-    image: katlany/twitter-server:latest
-    ports:
-      - "80:4000"
