@@ -9,7 +9,6 @@ exports.createSession = async (req, res) => {
   const {
     body: { email, password },
   } = req;
-  console.log("function hits ", email, password);
 
   // Distruct From req.body the email and password felids
 
@@ -20,8 +19,6 @@ exports.createSession = async (req, res) => {
   const user = await User.findOne({ email });
   //  check for user
   if (!user) {
-    console.log("no user found return 400");
-
     return res.status(400).json({ errors: "email or password incorrect" });
   }
   // if (!user.confirmed) {
@@ -55,8 +52,7 @@ exports.createSession = async (req, res) => {
       }
       return res.status(400).json({ message: "email or password incorrect" });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       return res.status(400).json({ message: "Something went wrong :/" });
     });
 };

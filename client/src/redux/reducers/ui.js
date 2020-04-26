@@ -21,7 +21,6 @@ export default function ui(state = initState, action) {
     case SET_MESSAGE:
       return { ...state, message: action.payload };
     case DELETE_MESSAGE:
-      console.log("delete message reducer");
       return { ...state, message: null };
     case CLEAR_UI:
       return { ...state, loading: false, message: null, redirect: null };
@@ -30,8 +29,6 @@ export default function ui(state = initState, action) {
     case LOADING_FINISH:
       return { ...state, loading: false };
     case IS_AUTH:
-      console.log(action.payload);
-
       return { ...state, isAuth: action.payload };
     default:
       return state;

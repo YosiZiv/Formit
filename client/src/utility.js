@@ -25,28 +25,19 @@ export const removeErrorFromObjects = (array) => {
   if (Array.isArray(array)) {
     const newArray = array.map((obj) => {
       const newObject = {};
-      console.log(obj);
 
       Object.entries(obj).map(([key, value]) => {
-        console.log(key, value);
-
         if (typeof value === "object" && !Array.isArray(value)) {
-          console.log("function second step", value);
           newObject[key] = value.value; // if value is object get only value leave error field out
         } else {
-          console.log("function second step", value);
           newObject[key] = value; // if value is no object just return value
         }
       });
-      console.log(newObject);
 
       return newObject;
     });
-    console.log(newArray);
-
     return newArray;
   } else if (typeof array === "object") {
-    console.log("IS THIS HIIIT");
     // check if function argoument is singel object
     const newObject = {};
     Object.entries(array).map(([key, value]) => {

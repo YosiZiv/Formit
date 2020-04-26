@@ -4,16 +4,12 @@ const SubmissionTable = ({ data }) => {
   let table;
 
   const createTable = (data) => {
-    console.log(data);
-
     if (data.length) {
-      console.log(data[0].fields);
       const head = data[0].fields.map((items) => {
         return <th>{items.name}</th>;
       });
       const body = data.map((items, index) => {
         const row = items.fields.map((item) => {
-          console.log(item);
           return <td>{item.value}</td>;
         });
         return (
@@ -23,8 +19,6 @@ const SubmissionTable = ({ data }) => {
           </tr>
         );
       });
-      console.log(head, body);
-
       return { head, body };
     }
   };

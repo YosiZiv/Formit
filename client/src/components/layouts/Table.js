@@ -5,8 +5,6 @@ const Table = ({ data }) => {
   const createTable = (data) => {
     // CREATE AND ORDER TABLE ROW FUNCTION
     return data.map((item) => {
-      console.log(item);
-
       const tdArray = [];
       for (let key in item) {
         switch (key) {

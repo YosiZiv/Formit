@@ -15,8 +15,6 @@ import { setMessage, redirect } from "../actions/ui";
 import { setSubmission } from "../actions/submission";
 const formSubmit = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT) {
-    console.log("IMPORRTENT", action.payload);
-
     const URL = "/form";
     return dispatch(
       apiRequest(
@@ -65,7 +63,6 @@ const getFormSuccess = ({ dispatch }) => (next) => (action) => {
 };
 const getFormFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORM_FAIL) {
-    console.log(action.payload);
   }
   next(action);
 };
@@ -87,7 +84,6 @@ const getFormsSuccess = ({ dispatch }) => (next) => (action) => {
 };
 const getFormsFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORMS_FAIL) {
-    console.log(action.payload);
   }
   next(action);
 };

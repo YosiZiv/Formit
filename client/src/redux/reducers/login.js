@@ -15,8 +15,6 @@ export default function login(state = initState, action) {
   switch (action.type) {
     case LOGIN_INPUT_CHANGE:
       const { id, value } = action.payload;
-      console.log("function", id, value);
-
       return {
         ...state,
         loginForm: {
@@ -29,7 +27,6 @@ export default function login(state = initState, action) {
     case LOGIN_INPUT_VALIDATION: {
       const { id, value, validation } = action.payload;
       const error = checkValidation(id, value, validation);
-      console.log(error);
       return {
         ...state,
         loginForm: {

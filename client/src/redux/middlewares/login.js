@@ -28,8 +28,6 @@ const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
 const userAuthCheck = ({ dispatch }) => (next) => (action) => {
   if (action.type === AUTH_CHECK) {
     const token = localStorage.getItem("token");
-    console.log("i WORK WAY TO FAST FOR YOU");
-
     if (!token) {
       return dispatch(isAuth(false));
     } else {

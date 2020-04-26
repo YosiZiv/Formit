@@ -57,7 +57,6 @@ const FormBuild = ({
       formName,
       fields: newArray,
     };
-    console.log("IMPORTTENT UPDATE", newArray);
     formSubmit(payload);
   };
   const form = formBuild.fields?.length

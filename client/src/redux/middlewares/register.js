@@ -8,8 +8,6 @@ import { setMessage, redirect } from "../actions/ui";
 
 const userRegister = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER) {
-    console.log("redux function work", action.payload);
-
     const URL = "/user";
     return dispatch(
       apiRequest(
@@ -31,7 +29,6 @@ const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
 };
 const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER_FAIL) {
-    console.log(action.payload);
     dispatch(setMessage(action.payload));
     return true;
   }

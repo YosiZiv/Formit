@@ -16,7 +16,6 @@ exports.createForm = async (req, res) => {
     await form.save();
     return res.status(201).json({ message: "form created", form });
   } catch (err) {
-    console.log(err);
     return res.status(400).json({ message: "validation failed" });
   }
 };
@@ -24,7 +23,6 @@ exports.createForm = async (req, res) => {
 exports.getFormById = async (req, res) => {
   // START UP CREATE FUNCTION FOR Form refactored later
   const formId = req.params.id;
-  console.log("functin work ", formId);
 
   try {
     // add inputs validation on server side
@@ -35,7 +33,6 @@ exports.getFormById = async (req, res) => {
     }
     return res.status(200).json({ data: form });
   } catch (err) {
-    console.log(err);
     return res.status(400).json({ message: "validation failed" });
   }
 };

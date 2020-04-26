@@ -25,31 +25,26 @@ const FormSubmission = ({
   const inputChange = (event) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode;
-    console.log(value, id);
 
     submissionInputChange({ field, id, value });
   };
   const inputFocus = (event, validation) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode;
-    console.log("input focus out", value, id, field);
     submissionInputValidation({ field, id, value, validation });
   };
   const handleFormSubmit = () => {
-    console.log(form);
     const filterFields = {
       formName: form.formName,
       formId: match.params.id,
       fields: removeErrorFromObjects(submission.fields),
     };
-    console.log(filterFields);
 
     newSubmission(filterFields);
   };
   const submissionForm = form.fields?.length ? (
     form.fields.map((field, index) => {
       const { label, type } = field;
-      console.log("IMPORTENT", submission.fields[index]?.value);
       return (
         <SubmissionField
           key={index}

@@ -11,8 +11,6 @@ import { setMessage, redirect } from "../actions/ui";
 import { setSubmission } from "../actions/submission";
 const newSubmission = ({ dispatch }) => (next) => (action) => {
   if (action.type === NEW_SUBMISSION) {
-    console.log("IMPORRTENT", action.payload);
-
     const URL = "/submission";
     return dispatch(
       apiRequest(
@@ -29,20 +27,16 @@ const newSubmission = ({ dispatch }) => (next) => (action) => {
 
 const newSubmissionSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === NEW_SUBMISSION_SUCCESS) {
-    console.log(action.payload);
   }
   next(action);
 };
 const newSubmissionFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === NEW_SUBMISSION_FAIL) {
-    console.log(action.payload);
   }
   next(action);
 };
 const getSubmissions = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS) {
-    console.log("GET SUBMISSION", action.payload);
-
     const URL = `/submission/${action.payload}`;
     return dispatch(
       apiRequest(
@@ -59,15 +53,12 @@ const getSubmissions = ({ dispatch }) => (next) => (action) => {
 
 const getSubmissionsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS_SUCCESS) {
-    console.log(action.payload);
-
     dispatch(setSubmission(action.payload));
   }
   next(action);
 };
 const getSubmissionsFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS_FAIL) {
-    console.log(action.payload);
   }
   next(action);
 };

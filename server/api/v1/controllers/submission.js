@@ -13,7 +13,6 @@ exports.createSubmission = async (req, res) => {
     if (err.errors.formId.message === "Not Found") {
       return res.status(400).json({ error: "Form Not Found" });
     }
-    console.log(err);
     return res.status(400).json({ error: "validation failed" });
   }
 };

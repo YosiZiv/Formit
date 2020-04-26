@@ -34,9 +34,3 @@ export const clearLoginState = (payload) => ({
   type: CLEAR_LOGIN_STATE,
   payload,
 });
-//   ({ dispatch }) => (next) => (action) => {
-//   console.log(expiresIn);
-//   setTimeout(() => {
-//     dispatch(logout());
-//   }, expiresIn);
-// };

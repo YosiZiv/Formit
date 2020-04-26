@@ -5,12 +5,8 @@ import Table from "../layouts/SubmissionsTable";
 const FormsSubmissions = ({ match, getSubmissions, submissions }) => {
   useEffect(() => {
     const formId = match.params?.id;
-    console.log(formId);
-
     formId && getSubmissions(formId);
   }, []);
-  console.log(submissions);
-
   return (
     <div className='forms-container'>
       <h1>SUBMISSION PAGE</h1>

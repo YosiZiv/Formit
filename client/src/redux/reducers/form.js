@@ -44,8 +44,6 @@ export default function form(state = initState, action) {
     }
     case FORM_BUILD_INPUT_CHANGE: {
       const { field, id, value } = action.payload;
-      console.log(field, id, value);
-
       const newFields = [...state.formBuild.fields];
       newFields[field] = { ...newFields[field], [id]: { value } };
       return {
@@ -84,7 +82,6 @@ export default function form(state = initState, action) {
     case CHECK_FORM_VALIDATION: {
       let valid = true;
       state.formBuild.fields.forEach((field) => {
-        console.log(field);
         if (
           typeof field.name.error === "string" ||
           typeof field.label.error === "string"
@@ -104,8 +101,6 @@ export default function form(state = initState, action) {
       };
     }
     case SET_FORMS: {
-      console.log("REDUCER SET FORM ", action.payload);
-
       return {
         ...state,
         forms: action.payload,
