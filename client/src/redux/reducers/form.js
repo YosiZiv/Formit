@@ -7,6 +7,7 @@ import {
   REMOVE_FORM_FIELD,
   SET_FORMS,
   SET_FORM,
+  CLEAR_FORM_STATE,
 } from "../actions/form";
 import { checkValidation } from "../../utility";
 const initState = {
@@ -115,6 +116,26 @@ export default function form(state = initState, action) {
       return {
         ...state,
         form: action.payload,
+      };
+    }
+    case CLEAR_FORM_STATE: {
+      return {
+        formBuild: {
+          fields: [
+            {
+              id: 0,
+              label: { value: "", error: null },
+              name: { value: "", error: null },
+              type: "text",
+            },
+          ],
+          formName: "",
+        },
+        form: {
+          fields: [],
+          formName: "",
+        },
+        forms: [],
       };
     }
     default:

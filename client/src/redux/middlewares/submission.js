@@ -1,5 +1,6 @@
 import { apiRequest } from "../actions/api";
 import {
+  setSubmissions,
   NEW_SUBMISSION,
   NEW_SUBMISSION_SUCCESS,
   NEW_SUBMISSION_FAIL,
@@ -53,7 +54,9 @@ const getSubmissions = ({ dispatch }) => (next) => (action) => {
 
 const getSubmissionsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS_SUCCESS) {
-    dispatch(setSubmission(action.payload));
+    console.log(action.payload);
+
+    dispatch(setSubmissions(action.payload.data));
   }
   next(action);
 };

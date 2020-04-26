@@ -9,7 +9,7 @@ const FormsSubmissions = ({ match, getSubmissions, submissions }) => {
   }, []);
 
   return (
-    <div className='forms-container'>
+    <div className='forms-container text-center m-5'>
       <h1>SUBMISSION PAGE</h1>
       <Table data={submissions} />
     </div>

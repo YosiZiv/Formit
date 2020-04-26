@@ -3,6 +3,7 @@ import "./input.css";
 
 const Input = ({ id, name, type, error, value, onChange, onBlur }) => {
   const inputClass = error ? "form-control is-invalid" : "form-control";
+
   return (
     <div className='input-container'>
       <label>

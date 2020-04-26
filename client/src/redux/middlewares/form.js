@@ -82,6 +82,8 @@ const getForms = ({ dispatch }) => (next) => (action) => {
 
 const getFormsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORMS_SUCCESS) {
+    console.log("redux", action.payload);
+
     return dispatch(setForms(action.payload.data));
   }
   next(action);

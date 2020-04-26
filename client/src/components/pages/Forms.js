@@ -9,7 +9,7 @@ const Forms = ({ getForms, forms }) => {
 
   return (
     <div className='forms-container'>
-      <Table data={forms} />
+      {forms.length ? <Table data={forms} /> : <h1>No Forms found</h1>}
     </div>
   );
 };
