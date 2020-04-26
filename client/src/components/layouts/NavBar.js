@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-const NavBar = ({ isAuth }) => (
+const NavBar = ({ isAuth, logout }) => (
   <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-    <a className='navbar-brand'>Formit</a>
+    <NavLink to='/'>
+      <span className='navbar-brand'>Formit</span>
+    </NavLink>
     <button
       className='navbar-toggler'
       type='button'
@@ -18,11 +20,31 @@ const NavBar = ({ isAuth }) => (
       <div className='navbar-nav'>
         <NavLink
           activeClassName='nav-active'
+          exact
           to='/'
           className='nav-item nav-link active'
         >
           Home <span className='sr-only'>(current)</span>
         </NavLink>
+
+        {isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/formbuild'
+          >
+            Build Form
+          </NavLink>
+        )}
+        {isAuth && (
+          <NavLink
+            className='nav-item nav-link'
+            activeClassName='nav-active'
+            to='/forms'
+          >
+            Forms
+          </NavLink>
+        )}
         {!isAuth && (
           <NavLink
             className='nav-item nav-link'
@@ -43,21 +65,10 @@ const NavBar = ({ isAuth }) => (
           </NavLink>
         )}
         {isAuth && (
-          <NavLink
-            className='nav-item nav-link'
-            activeClassName='nav-active'
-            to='/formbuild'
-          >
-            Build Form
-          </NavLink>
+          <button className='nav-item nav-link' onClick={logout}>
+            Logout
+          </button>
         )}
-        <NavLink
-          className='nav-item nav-link disabled'
-          activeClassName='nav-active'
-          to='/'
-        >
-          Disabled
-        </NavLink>
       </div>
     </div>
   </nav>

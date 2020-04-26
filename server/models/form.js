@@ -13,7 +13,6 @@ const FormSchema = new Schema({
           const userData = await User.findOne({ _id: val });
           return userData ? true : false;
         } catch (err) {
-          console.log(err);
           return false;
         }
       },

@@ -1,39 +1,41 @@
 import React from "react";
 import "./formField.css";
 import Select from "./SelectInput";
+import Input from "./Input";
 const FormField = ({ id, label, name, type, onChange, onBlur }) => {
-  console.log(id, label, name, type);
-  console.log(label.error, name.error);
   const labelClass = label.error ? "form-control is-invalid" : "form-control";
   const nameClass = name.error ? "form-control is-invalid" : "form-control";
   return (
     <div id={id} className='form-field-container'>
-      <div className='form-field-label'>
-        <label>Enter Label</label>
-        <input
+      <div className='form-field'>
+        <Input
           onBlur={onBlur}
           className={labelClass}
-          id={"label"}
+          id='label'
+          name='label'
+          type='text'
           onChange={onChange}
           value={label.value}
         />
-        {label.error && <small className='text-danger'>{label.error}</small>}
       </div>
-      <div className='form-field-name'>
-        <label>Enter Name</label>
-        <input
+      <div className='form-field'>
+        <Input
+          required
           onBlur={onBlur}
           className={nameClass}
-          id={"name"}
+          id='name'
+          name='name'
+          error={label.error}
+          type='text'
           onChange={onChange}
           value={name.value}
         />
-        {name.error && <small className='text-danger'>{name.error}</small>}
       </div>
-      <div className='form-group'>
-        <label>Select Type</label>
+      <div className='form-field'>
         <Select
-          id={"type"}
+          required
+          id='type'
+          label='type'
           value={type}
           onChange={onChange}
           options={["text", "email", "password", "color", "tel", "number"]}

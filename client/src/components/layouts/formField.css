@@ -1,8 +1,16 @@
 .form-field-container {
-  display: flex;
+  display: block;
 }
 .form-field-container div {
-  width: 30%;
   margin: 0 5px;
-  display: block;
+}
+@media screen and (min-width: 800px) {
+  .form-field-container {
+    display: flex;
+    width: 100%;
+    flex-grow: 2;
+  }
+  .form-field {
+    width: 33%;
+  }
 }

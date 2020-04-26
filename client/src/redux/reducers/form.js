@@ -5,6 +5,8 @@ import {
   CHECK_FORM_VALIDATION,
   CREATE_FORM_FIELD,
   REMOVE_FORM_FIELD,
+  SET_FORMS,
+  SET_FORM,
 } from "../actions/form";
 import { checkValidation } from "../../utility";
 const initState = {
@@ -19,6 +21,11 @@ const initState = {
     ],
     formName: "",
   },
+  form: {
+    fields: [],
+    formName: "",
+  },
+  forms: [],
 };
 
 export default function form(state = initState, action) {
@@ -42,8 +49,6 @@ export default function form(state = initState, action) {
     }
     case FORM_BUILD_INPUT_CHANGE: {
       const { field, id, value } = action.payload;
-      console.log(field, id, value);
-
       const newFields = [...state.formBuild.fields];
       newFields[field] = { ...newFields[field], [id]: { value } };
       return {
@@ -82,7 +87,6 @@ export default function form(state = initState, action) {
     case CHECK_FORM_VALIDATION: {
       let valid = true;
       state.formBuild.fields.forEach((field) => {
-        console.log(field);
         if (
           typeof field.name.error === "string" ||
           typeof field.label.error === "string"
@@ -99,6 +103,18 @@ export default function form(state = initState, action) {
           ...state.formBuild,
           valid,
         },
+      };
+    }
+    case SET_FORMS: {
+      return {
+        ...state,
+        forms: action.payload,
+      };
+    }
+    case SET_FORM: {
+      return {
+        ...state,
+        form: action.payload,
       };
     }
     default:

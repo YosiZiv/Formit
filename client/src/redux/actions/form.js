@@ -10,6 +10,11 @@ export const FORM_SUBMIT_FAIL = "[formBuild] Form Submit Fail";
 export const GET_FORM = "[form] Get Form";
 export const GET_FORM_SUCCESS = "[form] Get Form Success";
 export const GET_FORM_FAIL = "[form] Get Form Fail";
+export const GET_FORMS = "[form] Get Forms";
+export const GET_FORMS_SUCCESS = "[form] Get Forms Success";
+export const GET_FORMS_FAIL = "[form] Get Forms Fail";
+export const SET_FORM = "[form] Set Form";
+export const SET_FORMS = "[form] Set Forms";
 export const createFormField = () => ({
   type: CREATE_FORM_FIELD,
 });
@@ -38,6 +43,18 @@ export const formSubmit = (payload) => ({
   payload,
 });
 export const getForm = (payload) => ({
-  type: FORM_SUBMIT,
+  type: GET_FORM,
+  payload,
+});
+export const getForms = (payload) => ({
+  type: GET_FORMS,
+  payload,
+});
+export const setForm = (payload) => ({
+  type: SET_FORM,
+  payload,
+});
+export const setForms = (payload) => ({
+  type: SET_FORMS,
   payload,
 });

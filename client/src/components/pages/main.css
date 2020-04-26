@@ -1,54 +1,61 @@
-.main-container {
+.main-content {
   height: 550px;
 }
 
 .main-header {
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  font-family: monospace;
   font-weight: 700;
-  line-height: 38px;
+  line-height: 23px;
   margin-top: 50px;
   width: 100%;
 }
 .main-header h2 {
-  font-size: 32px;
-  padding: 5px;
-  margin-left: 10%;
+  font-weight: 900;
+  font-size: 17px;
+  margin-left: 5%;
   text-shadow: 1px 1px #ffffff;
 }
 .main-header label {
   font-weight: 100;
-  font-size: 18px;
-  color: #d492e7;
+  font-size: 10px;
+  color: #c82333;
+  text-shadow: 1px 1px black;
+  margin-top: y5px;
+  margin-left: 5%;
+  border-bottom: 1px solid #a1bfd9;
+  border-bottom-style: groove;
+}
+
+.main-image {
+  margin: 0 auto;
+  width: 50%;
+}
+.main-image img {
+  width: 80%;
+  height: 250px;
+}
+
+.main-button {
+  display: flex;
+  justify-content: center;
+  width: 95%;
+}
+.main-button button {
   margin-top: 20px;
-  margin-left: 30%;
-  border-bottom: 1px solid #ffffff;
+  padding: 10px 40px;
 }
-.main-content {
-  margin-top: 60px;
-  text-align: center;
-  width: 100%;
-  font-size: 17px;
-}
-.main-content button {
-  font-size: 17px;
-  width: 100px;
-}
-.main-background-image-right {
-  position: absolute;
-  top: 231px;
-  left: 117px;
-}
-.main-background-image-right img {
-  width: 200px;
-  height: 200px;
-}
-.main-background-image-left {
-  position: absolute;
-  top: 231px;
-  left: 70%;
-}
-.main-background-image-left img {
-  width: 200px;
-  height: 200px;
+@media screen and (min-width: 600px) {
+  .main-header h2 {
+    font-size: 30px;
+  }
+  .main-header label {
+    font-size: 20px;
+  }
+  .main-image img {
+    height: 460px;
+  }
+  .main-image {
+    margin: 0 auto;
+    width: 30%;
+  }
 }

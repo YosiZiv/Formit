@@ -1,14 +1,17 @@
 import React from "react";
 
-const SelectInput = ({ id, options, onChange }) => {
-  console.log(id);
-
+const SelectInput = ({ id, label, options, onChange }) => {
   return (
-    <select id={id} onChange={onChange} className='form-control'>
-      {options.map((opt) => (
-        <option key={opt}>{opt}</option>
-      ))}
-    </select>
+    <div className='input-container'>
+      <label>
+        <strong>{label}</strong>
+      </label>
+      <select id={id} onChange={onChange} className='form-control'>
+        {options.map((opt) => (
+          <option key={opt}>{opt}</option>
+        ))}
+      </select>
+    </div>
   );
 };
 export default SelectInput;
