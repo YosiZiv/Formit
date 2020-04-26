@@ -20,11 +20,9 @@ export default function submission(state = initState, action) {
   switch (action.type) {
     case SUBMISSION_INPUT_CHANGE: {
       const { id, name, value } = action.payload;
-      console.log(id, name);
 
       const newFields = [...state.submission.fields];
       newFields[id] = { name, value: { value } };
-      console.log("IMPORTENT", newFields);
 
       return {
         ...state,
@@ -49,8 +47,6 @@ export default function submission(state = initState, action) {
       };
     }
     case SET_SUBMISSIONS: {
-      console.log(action.payload);
-
       return {
         ...state,
         submissions: action.payload,

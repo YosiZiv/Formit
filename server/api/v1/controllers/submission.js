@@ -3,8 +3,6 @@ const { Submission, Form } = require("../../../models/index");
 exports.createSubmission = async (req, res) => {
   // START UP CREATE FUNCTION FOR Submission refactore later
   const { body } = req;
-  console.log("MY FUNCTINN ", body);
-
   try {
     const newSubmission = await new Submission({ ...body }).save();
     if (!newSubmission) {
@@ -33,7 +31,6 @@ exports.getSubmissionByFormId = async (req, res, next) => {
     const submissionsByFormId = await Submission.find({ formId });
     if (!Object.keys(submissionsByFormId).length)
       return res.status(400).json({ error: "there is no submissions yet" });
-    console.log("SERVER O K", submissionsByFormId);
     res.status(200).json({ data: submissionsByFormId });
   } catch (error) {
     if (error) return res.status(400).json({ error });

@@ -25,9 +25,6 @@ const FormSubmission = ({
   }, []);
   const inputChange = (event) => {
     const { value, id, name } = event.currentTarget;
-
-    console.log(name, id, value);
-
     submissionInputChange({ id, name, value });
   };
   const inputFocus = (event, validation) => {
@@ -45,8 +42,6 @@ const FormSubmission = ({
   };
   const submissionForm = form.fields?.length ? (
     form.fields.map((field, index) => {
-      console.log(field);
-
       const { label, type } = field;
       return (
         <Input
@@ -70,8 +65,6 @@ const FormSubmission = ({
   ) : (
     <div>Form didn't found</div>
   );
-  console.log(form);
-
   return (
     <div className='form-submit-container'>
       <div className='form-submit-wrapper'>

@@ -54,8 +54,6 @@ const getSubmissions = ({ dispatch }) => (next) => (action) => {
 
 const getSubmissionsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS_SUCCESS) {
-    console.log(action.payload);
-
     dispatch(setSubmissions(action.payload.data));
   }
   next(action);

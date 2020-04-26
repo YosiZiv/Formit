@@ -39,8 +39,6 @@ const FormBuild = ({
   const inputChange = (event) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
-    console.log(field, id, value);
-
     formBuildInputChange({ field, id, value });
   };
   const nameChange = (event) => {
@@ -67,11 +65,7 @@ const FormBuild = ({
   };
   const form = formBuild.fields?.length
     ? formBuild.fields.map((field, index) => {
-        console.log(field);
-
         const { id, label, name, type } = field;
-        console.log(id);
-
         return (
           <FormField
             key={index}
