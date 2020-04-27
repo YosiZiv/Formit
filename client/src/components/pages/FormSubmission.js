@@ -9,6 +9,7 @@ import {
   newSubmission,
 } from "../../redux/actions/submission";
 import Input from "../layouts/Input";
+import Spinner from "../layouts/Spinner";
 import { removeErrorFromObjects } from "../../utility";
 const FormSubmission = ({
   getForm,
@@ -42,34 +43,36 @@ const FormSubmission = ({
 
     newSubmission(filterFields);
   };
-  const submissionForm = form.fields?.length ? (
-    form.fields.map((field, index) => {
-      const { label, type } = field;
-      return (
-        <Input
-          key={index}
-          id={index}
-          name={field.name}
-          type={type}
-          error={submission.fields[index]?.value?.error}
-          value={submission.fields[index]?.value.value ?? ""}
-          onChange={inputChange}
-          onBlur={(e) =>
-            inputFocus(e, {
-              isRequired: true,
-              minLength: 2,
-              maxLength: 15,
-            })
-          }
-        />
-      );
-    })
-  ) : (
-    <div>Form didn't found</div>
-  );
+  const submissionForm =
+    form.fields?.length && !loading ? (
+      form.fields.map((field, index) => {
+        const { label, type } = field;
+        return (
+          <Input
+            key={index}
+            id={index}
+            name={field.name}
+            type={type}
+            error={submission.fields[index]?.value?.error}
+            value={submission.fields[index]?.value.value ?? ""}
+            onChange={inputChange}
+            onBlur={(e) =>
+              inputFocus(e, {
+                isRequired: true,
+                minLength: 2,
+                maxLength: 15,
+              })
+            }
+          />
+        );
+      })
+    ) : loading ? (
+      <Spinner />
+    ) : (
+      !loading && form.fields?.length && <div>Form didn't found</div>
+    );
   return (
     <div className='form-submit-container'>
-      {redirect && <Redirect to='/' />}
       <div className='form-submit-wrapper'>
         <div className='form-submit-header'>
           <h2>{form.formName}</h2>
