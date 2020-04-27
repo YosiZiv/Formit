@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("./models/index");
+const path = require("path");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -14,21 +15,14 @@ app.use(helmet()); // helmet help secure express server with by setting up reque
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/", express.static("public/build"));
+app.use(express.static("public/build"));
 app.use("/api/v1", api);
 
-app.use((req, res, next) => {
-  const error = new Error(`Not Found - ${req.originalUrl}`);
-  res.status(404);
-  next(error);
-});
-
-app.use((error, req, res, next) => {
-  res.status(res.statusCode);
-  res.json({
-    error: error.message,
-    stack: error.stack,
-  });
+app.get("*", (req, res, next) => {
+  if (req.path === "/api") {
+    next();
+  }
+  res.sendFile(path.join(__dirname, "public", "build", "index.html"));
 });
 
 app.listen(PORT, () => console.log("Server is running on Port: " + PORT));
