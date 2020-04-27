@@ -7,7 +7,7 @@ export const api = ({ dispatch }) => (next) => (action) => {
     const { method, url, onSuccess, onError } = action.meta;
     dispatch(loadingStart());
     if (method === "GET") {
-      axios
+      axios()
         .get(url)
         .then((response) => {
           dispatch(loadingFinish());
@@ -22,7 +22,7 @@ export const api = ({ dispatch }) => (next) => (action) => {
         });
     }
     if (method === "POST") {
-      axios
+      axios()
         .post(url, action.payload)
         .then((response) => {
           dispatch(loadingFinish());

@@ -64,7 +64,7 @@ const getFormSuccess = ({ dispatch }) => (next) => (action) => {
 };
 const getFormFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORM_FAIL) {
-    return false;
+    dispatch(setMessage(action.payload));
   }
   next(action);
 };

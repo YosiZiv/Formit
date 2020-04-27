@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getForms } from "../../redux/actions/form";
 import Table from "../layouts/Table";
-const Forms = ({ getForms, forms }) => {
+const Forms = ({ getForms, forms, isAuth }) => {
   useEffect(() => {
-    getForms();
-  }, []);
+    isAuth && getForms();
+  }, [isAuth]);
 
   return (
     <div className='forms-container'>
@@ -13,8 +13,8 @@ const Forms = ({ getForms, forms }) => {
     </div>
   );
 };
-const mapStateToProps = ({ form: { forms } }) => {
-  return { forms };
+const mapStateToProps = ({ form: { forms }, ui: { isAuth } }) => {
+  return { forms, isAuth };
 };
 
 export default connect(mapStateToProps, { getForms })(Forms);
