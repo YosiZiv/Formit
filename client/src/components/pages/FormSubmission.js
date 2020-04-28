@@ -8,7 +8,7 @@ import {
   submissionInputValidation,
   newSubmission,
 } from "../../redux/actions/submission";
-import Input from "../layouts/Input";
+import SubmissionInput from "../layouts/SubmissionInputs";
 import Spinner from "../layouts/Spinner";
 import { removeErrorFromObjects } from "../../utility";
 const FormSubmission = ({
@@ -48,7 +48,7 @@ const FormSubmission = ({
       form.fields.map((field, index) => {
         const { label, type } = field;
         return (
-          <Input
+          <SubmissionInput
             key={index}
             id={index}
             name={field.name}
