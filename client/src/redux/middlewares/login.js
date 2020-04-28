@@ -9,7 +9,13 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
 } from "../actions/login";
-import { setMessage, deleteMessage, isAuth, redirect } from "../actions/ui";
+import {
+  setMessage,
+  deleteMessage,
+  isAuth,
+  redirect,
+  clearUi,
+} from "../actions/ui";
 
 const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
   if (action.type === CHECK_EXPIRES_IN) {
@@ -61,15 +67,19 @@ const userLogin = ({ dispatch }) => (next) => (action) => {
 const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_LOGIN_SUCCESS) {
     const {
-      payload: { expiresIn, token },
+      payload: { expiresIn, token, user },
     } = action;
+    console.log(user);
+
     const date = new Date();
     date.setDate(date.getDate() + expiresIn);
     localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("expiresIn", date);
     dispatch(checkExpiresIn({ expiresIn: date }));
     dispatch(isAuth(true));
-    return dispatch(redirect("/"));
+    dispatch(redirect("/"));
+    dispatch(clearUi());
   }
   next(action);
 };
@@ -84,7 +94,8 @@ const userLogout = ({ dispatch }) => (next) => (action) => {
     localStorage.removeItem("token");
     localStorage.removeItem("expiresIn");
     dispatch(isAuth(false));
-    return dispatch(redirect("/"));
+    dispatch(redirect("/"));
+    dispatch(clearUi());
   }
   next(action);
 };

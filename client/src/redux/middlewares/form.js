@@ -12,8 +12,7 @@ import {
   GET_FORMS_SUCCESS,
   GET_FORMS_FAIL,
 } from "../actions/form";
-import { setSubmission } from "../actions/submission";
-import { setMessage, redirect } from "../actions/ui";
+import { setMessage, redirect, clearUi } from "../actions/ui";
 const formSubmit = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT) {
     const URL = "/form";
@@ -33,6 +32,7 @@ const formSubmit = ({ dispatch }) => (next) => (action) => {
 const formSubmitSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT_SUCCESS) {
     dispatch(redirect("/forms"));
+    return dispatch(clearUi());
   }
   next(action);
 };
@@ -41,7 +41,7 @@ const formSubmitFail = ({ dispatch }) => (next) => (action) => {
     const {
       payload: { message },
     } = action;
-    dispatch(setMessage(message));
+    return dispatch(setMessage(message));
   }
   next(action);
 };
