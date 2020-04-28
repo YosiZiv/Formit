@@ -39,8 +39,6 @@ const FormBuild = ({
   const inputChange = (event) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
-    console.log(field, id, value);
-
     formBuildInputChange({ field, id, value });
   };
   const nameChange = (event) => {
@@ -50,7 +48,6 @@ const FormBuild = ({
   const inputFocus = (event, validation) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
-
     formBuildInputValidation({ field, id, value, validation });
     formCheckValidation();
   };
@@ -67,11 +64,7 @@ const FormBuild = ({
   };
   const form = formBuild.fields?.length
     ? formBuild.fields.map((field, index) => {
-        console.log(field);
-
         const { id, label, name, type } = field;
-        console.log(id);
-
         return (
           <FormField
             key={index}
@@ -113,7 +106,7 @@ const FormBuild = ({
           <div className='form-build-fields'>{form}</div>
         </div>
         {formBuild.valid ? (
-          <div className='form-build-submit d-flex'>
+          <div className='form-build-submit'>
             <Input
               id='formBuild'
               name='Form Name'

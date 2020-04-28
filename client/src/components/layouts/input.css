@@ -1,14 +1,31 @@
 .input-container input {
   width: 100%;
-  padding: 5px;
-  text-indent: 10px;
+  padding: 2px;
+  text-indent: 3px;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
 }
 .input-container label {
   color: #8d9092;
-  font-size: 15px;
+  font-size: 10px;
 }
-input[type="color"] {
-  width: 50px;
-  height: 50px;
+.input-container select {
+  font-size: 10px;
+}
+@media screen and (min-width: 600px) {
+  .input-container input {
+    width: 100%;
+    padding: 5px;
+    text-indent: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .input-container label {
+    color: #8d9092;
+    font-size: 15px;
+  }
+  .input-container select {
+    font-size: 10px;
+    padding: 2px;
+    text-indent: 3px;
+  }
 }

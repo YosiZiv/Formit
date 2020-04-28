@@ -13,6 +13,7 @@ const FormField = ({ id, label, name, type, onChange, onBlur }) => {
           className={labelClass}
           id='label'
           name='label'
+          error={label.error}
           type='text'
           onChange={onChange}
           value={label.value}
@@ -25,7 +26,7 @@ const FormField = ({ id, label, name, type, onChange, onBlur }) => {
           className={nameClass}
           id='name'
           name='name'
-          error={label.error}
+          error={name.error}
           type='text'
           onChange={onChange}
           value={name.value}

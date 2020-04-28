@@ -13,10 +13,11 @@ import FormSubmission from "./components/pages/FormSubmission";
 import { logout } from "./redux/actions/login";
 import "./App.css";
 
-function App({ authCheck, isAuth, redirect, logout }) {
+function App({ authCheck, isAuth, redirect, logout, match }) {
   useEffect(() => {
-    !isAuth && authCheck();
+    authCheck();
   }, []);
+
   const routes = (
     <Switch>
       <Route path='/' component={Main} exact />
@@ -31,7 +32,6 @@ function App({ authCheck, isAuth, redirect, logout }) {
 
   return (
     <div className='App'>
-      <Redirect to={redirect} />
       <NavBar logout={logout} isAuth={isAuth} />
       {routes}
     </div>

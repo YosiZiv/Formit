@@ -12,8 +12,7 @@ import {
   GET_FORMS_SUCCESS,
   GET_FORMS_FAIL,
 } from "../actions/form";
-import { setSubmission } from "../actions/submission";
-import { setMessage, redirect } from "../actions/ui";
+import { setMessage, redirect, clearUi } from "../actions/ui";
 const formSubmit = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT) {
     const URL = "/form";
@@ -33,6 +32,7 @@ const formSubmit = ({ dispatch }) => (next) => (action) => {
 const formSubmitSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT_SUCCESS) {
     dispatch(redirect("/forms"));
+    return dispatch(clearUi());
   }
   next(action);
 };
@@ -41,7 +41,7 @@ const formSubmitFail = ({ dispatch }) => (next) => (action) => {
     const {
       payload: { message },
     } = action;
-    dispatch(setMessage(message));
+    return dispatch(setMessage(message));
   }
   next(action);
 };
@@ -58,15 +58,13 @@ const getForm = ({ dispatch }) => (next) => (action) => {
 
 const getFormSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORM_SUCCESS) {
-    console.log(action.payload);
-
     return dispatch(setForm(action.payload.data));
   }
   next(action);
 };
 const getFormFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORM_FAIL) {
-    return false;
+    dispatch(setMessage(action.payload));
   }
   next(action);
 };
@@ -82,8 +80,6 @@ const getForms = ({ dispatch }) => (next) => (action) => {
 
 const getFormsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_FORMS_SUCCESS) {
-    console.log("redux", action.payload);
-
     return dispatch(setForms(action.payload.data));
   }
   next(action);

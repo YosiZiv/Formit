@@ -8,8 +8,8 @@ import {
   GET_SUBMISSIONS_SUCCESS,
   GET_SUBMISSIONS_FAIL,
 } from "../actions/submission";
-import { setMessage, redirect } from "../actions/ui";
-import { setSubmission } from "../actions/submission";
+import { clearUi, redirect, setMessage } from "../actions/ui";
+
 const newSubmission = ({ dispatch }) => (next) => (action) => {
   if (action.type === NEW_SUBMISSION) {
     const URL = "/submission";
@@ -28,6 +28,8 @@ const newSubmission = ({ dispatch }) => (next) => (action) => {
 
 const newSubmissionSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === NEW_SUBMISSION_SUCCESS) {
+    dispatch(redirect("/"));
+    return dispatch(clearUi());
   }
   next(action);
 };
@@ -54,14 +56,13 @@ const getSubmissions = ({ dispatch }) => (next) => (action) => {
 
 const getSubmissionsSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS_SUCCESS) {
-    console.log(action.payload);
-
-    dispatch(setSubmissions(action.payload.data));
+    return dispatch(setSubmissions(action.payload.data));
   }
   next(action);
 };
 const getSubmissionsFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === GET_SUBMISSIONS_FAIL) {
+    dispatch(setMessage(action.payload));
   }
   next(action);
 };

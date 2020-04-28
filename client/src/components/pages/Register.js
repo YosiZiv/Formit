@@ -48,8 +48,6 @@ const Register = ({
     const data = removeErrorFromObjects(registerForm);
     userRegister(data);
   };
-  console.log(registerFinish);
-
   return (
     <div className='register-container'>
       {!registerFinish ? (

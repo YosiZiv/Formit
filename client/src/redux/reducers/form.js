@@ -72,6 +72,7 @@ export default function form(state = initState, action) {
     }
     case FORM_BUILD_INPUT_VALIDATION: {
       const { field, id, value, validation } = action.payload;
+
       const error = checkValidation(id, value, validation);
       const newFields = [...state.formBuild.fields];
       newFields[field] = { ...newFields[field], [id]: { value, error } };
