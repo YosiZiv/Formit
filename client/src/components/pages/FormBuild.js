@@ -106,7 +106,7 @@ const FormBuild = ({
           <div className='form-build-fields'>{form}</div>
         </div>
         {formBuild.valid ? (
-          <div className='form-build-submit d-flex'>
+          <div className='form-build-submit'>
             <Input
               id='formBuild'
               name='Form Name'

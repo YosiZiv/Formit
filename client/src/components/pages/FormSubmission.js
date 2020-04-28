@@ -80,7 +80,7 @@ const FormSubmission = ({
         <div className='form-submit-body'>
           {submissionForm}
           {form.fields.length ? (
-            <div className='mt-2 text-center'>
+            <div className='mt-5 text-center'>
               <button
                 disabled={loading}
                 onClick={handleFormSubmit}

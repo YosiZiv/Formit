@@ -14,15 +14,15 @@
   margin-left: 3%;
 }
 .form-build-header h1 {
-  font-size: 20px;
+  font-size: 10px;
 }
 .form-build-new button {
   font-size: 12px;
   margin: 15px 9px;
 }
 .form-build-submit {
-  margin-top: 32px;
-  margin-left: 16px;
+  font-size: 12px;
+  margin: 15px 9px;
 }
 
 .form-build-submit button {
@@ -39,6 +39,9 @@
     font-size: 40px;
   }
   .form-build-new button {
+    font-size: 18px;
+  }
+  .form-build-submit button {
     font-size: 18px;
   }
 }
