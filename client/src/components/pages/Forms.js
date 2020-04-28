@@ -9,18 +9,14 @@ const Forms = ({ getForms, forms, isAuth, loading }) => {
     isAuth && getForms();
   }, [isAuth]);
   const user = isAuth && JSON.parse(localStorage.getItem("user"));
+  console.log(isAuth);
+
   return (
     <div className='forms-container'>
       <div className='forms-header'>
         <h2>{user.name} forms</h2>
       </div>
-      {forms?.length && !loading ? (
-        <Table data={forms} />
-      ) : loading ? (
-        <Spinner />
-      ) : (
-        !forms.length && !loading && <h1>No Forms found</h1>
-      )}
+      {!loading ? <Table data={forms} /> : <Spinner />}
     </div>
   );
 };
