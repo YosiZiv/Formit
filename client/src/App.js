@@ -15,7 +15,6 @@ import "./App.css";
 
 function App({ authCheck, isAuth, redirect, logout, match }) {
   useEffect(() => {
-    console.log(match);
     authCheck();
   }, []);
 

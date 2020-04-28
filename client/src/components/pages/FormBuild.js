@@ -48,7 +48,6 @@ const FormBuild = ({
   const inputFocus = (event, validation) => {
     const { value, id } = event.currentTarget;
     const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
-
     formBuildInputValidation({ field, id, value, validation });
     formCheckValidation();
   };
