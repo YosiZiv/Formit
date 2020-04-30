@@ -5,34 +5,48 @@ import "./formSubmission.css";
 import { getForm } from "../../redux/actions/form";
 import {
   submissionInputChange,
-  submissionInputValidation,
+  checkSubmissionFormValidation,
   newSubmission,
+  clearSubmissionState,
 } from "../../redux/actions/submission";
 import SubmissionInput from "../layouts/SubmissionInputs";
 import Spinner from "../layouts/Spinner";
 import { removeErrorFromObjects } from "../../utility";
+import { clearUi } from "../../redux/actions/ui";
 const FormSubmission = ({
   getForm,
   form,
   submission,
   match,
   submissionInputChange,
-  submissionInputValidation,
+  checkSubmissionFormValidation,
   newSubmission,
   loading,
   redirect,
+  clearUi,
+  clearSubmissionState,
 }) => {
+  const formValidation = {
+    isRequired: true,
+    minLength: 2,
+    maxLength: 256,
+  };
+  const formId = match.params.id;
   useEffect(() => {
-    const formId = match.params.id;
     getForm(formId);
-  }, []);
+    return () => {
+      clearUi();
+      clearSubmissionState();
+    };
+  }, [getForm, clearUi, clearSubmissionState, formId]);
   const inputChange = (event) => {
     const { value, id, name } = event.currentTarget;
     submissionInputChange({ id, name, value });
   };
-  const inputFocus = (event, validation) => {
-    const { name, value, id } = event.currentTarget;
-    submissionInputValidation({ id, name, value, validation });
+
+  const inputFocus = () => {
+    const form = submission?.fields?.length ? submission.fields : [];
+    checkSubmissionFormValidation({ form, formValidation });
   };
   const handleFormSubmit = () => {
     const filterFields = {
@@ -40,13 +54,12 @@ const FormSubmission = ({
       formId: match.params.id,
       fields: removeErrorFromObjects(submission.fields),
     };
-
     newSubmission(filterFields);
   };
   const submissionForm =
     form.fields?.length && !loading ? (
       form.fields.map((field, index) => {
-        const { label, type } = field;
+        const { type } = field;
         return (
           <SubmissionInput
             key={index}
@@ -56,13 +69,7 @@ const FormSubmission = ({
             error={submission.fields[index]?.value?.error}
             value={submission.fields[index]?.value.value ?? ""}
             onChange={inputChange}
-            onBlur={(e) =>
-              inputFocus(e, {
-                isRequired: true,
-                minLength: 2,
-                maxLength: 15,
-              })
-            }
+            onBlur={inputFocus}
           />
         );
       })
@@ -71,26 +78,29 @@ const FormSubmission = ({
     ) : (
       !loading && form.fields?.length && <div>Form didn't found</div>
     );
+  console.log(submission);
+
   return (
     <div className='form-submit-container'>
+      {redirect && <Redirect to={redirect} />}
       <div className='form-submit-wrapper'>
         <div className='form-submit-header'>
           <h2>{form.formName}</h2>
         </div>
         <div className='form-submit-body'>
           {submissionForm}
-          {form.fields.length ? (
+          {form.fields?.length && (
             <div className='mt-5 text-center'>
               <button
-                disabled={loading}
+                disabled={loading || !submission.isValid}
                 onClick={handleFormSubmit}
                 type='button'
-                className='btn btn-success w-25'
+                className='btn btn-success'
               >
                 Submit
               </button>
             </div>
-          ) : null}
+          )}
         </div>
       </div>
     </div>
@@ -99,14 +109,16 @@ const FormSubmission = ({
 const mapStateToProps = ({
   form: { form },
   submission: { submission },
-  ui: { redirect, isAuth, loading },
+  ui: { redirect, loading },
 }) => {
   return { form, submission, loading, redirect };
 };
 
 export default connect(mapStateToProps, {
   getForm,
-  submissionInputValidation,
+  checkSubmissionFormValidation,
   submissionInputChange,
   newSubmission,
+  clearUi,
+  clearSubmissionState,
 })(FormSubmission);

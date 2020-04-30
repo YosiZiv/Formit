@@ -28,7 +28,7 @@ const Login = ({
       clearUi();
       clearLoginState();
     },
-    []
+    [clearUi, clearLoginState]
   );
 
   const handleInputChange = (event, id) => {
@@ -91,12 +91,12 @@ const Login = ({
                 })
               }
             />
-            <div className='mt-5 text-center'>
+            <div className='login-submit text-center'>
               <button
                 disabled={loading}
                 onClick={handleFormSubmit}
                 type='button'
-                className='btn btn-primary  w-25'
+                className='btn btn-primary'
               >
                 Login
               </button>
@@ -104,7 +104,7 @@ const Login = ({
           </form>
           {loading && <Spinner />}
           {message && (
-            <div className='login-message text-center'>
+            <div className='text-center text-danger m-2'>
               <p>{message}</p>
             </div>
           )}

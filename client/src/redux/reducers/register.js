@@ -46,13 +46,7 @@ export default function login(state = initState, action) {
     }
     case CLEAR_REGISTER_STATE: {
       return {
-        registerForm: {
-          name: { value: "", error: false },
-          email: { value: "", error: false },
-          password: { value: "", error: false },
-          passwordConfirm: { value: "", error: false },
-        },
-        registerFinish: false,
+        ...initState,
       };
     }
     case SET_REGISTER: {

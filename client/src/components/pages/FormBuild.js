@@ -7,33 +7,36 @@ import {
   createFormField,
   formBuildInputChange,
   formNameInputChange,
-  formBuildInputValidation,
+  checkFormBuildValidation,
   formSubmit,
-  formCheckValidation,
   clearFormState,
 } from "../../redux/actions/form";
 import { clearUi } from "../../redux/actions/ui";
 import FormField from "../layouts/FormField";
 import { removeErrorFromObjects } from "../../utility";
 const FormBuild = ({
-  history,
   formBuild,
   formBuildInputChange,
   formNameInputChange,
-  formBuildInputValidation,
-  formCheckValidation,
+  checkFormBuildValidation,
   formSubmit,
   createFormField,
   redirect,
+  loading,
   clearUi,
   clearFormState,
 }) => {
+  const formValidation = {
+    isRequired: true,
+    minLength: 2,
+    maxLength: 15,
+  };
   useEffect(
     () => () => {
       clearUi();
       clearFormState();
     },
-    []
+    [clearUi, clearFormState]
   );
 
   const inputChange = (event) => {
@@ -45,17 +48,14 @@ const FormBuild = ({
     const { value } = event.currentTarget;
     formNameInputChange({ value });
   };
-  const inputFocus = (event, validation) => {
-    const { value, id } = event.currentTarget;
-    const { id: field } = event.currentTarget.parentNode.parentNode.parentNode;
-    formBuildInputValidation({ field, id, value, validation });
-    formCheckValidation();
+  const inputFocus = () => {
+    const form = formBuild?.fields?.length ? formBuild.fields : [];
+    console.log(form);
+    checkFormBuildValidation({ form, formValidation });
   };
   const formSubmitHandler = () => {
     const { formName, fields } = formBuild;
-
     const newArray = removeErrorFromObjects(fields);
-
     const payload = {
       formName,
       fields: newArray,
@@ -64,7 +64,9 @@ const FormBuild = ({
   };
   const form = formBuild.fields?.length
     ? formBuild.fields.map((field, index) => {
-        const { id, label, name, type } = field;
+        const { label, name, type } = field;
+        console.log(label, name);
+
         return (
           <FormField
             key={index}
@@ -73,18 +75,14 @@ const FormBuild = ({
             label={label}
             name={name}
             type={type}
-            onBlur={(e) =>
-              inputFocus(e, {
-                isRequired: true,
-                minLength: 2,
-                maxLength: 15,
-              })
-            }
+            onBlur={(e) => inputFocus(e, {})}
             onChange={inputChange}
           />
         );
       })
     : null;
+  console.log(formBuild.formName.length);
+
   return (
     <div className='form-build-container'>
       {!localStorage.getItem("token") ||
@@ -105,43 +103,41 @@ const FormBuild = ({
           </div>
           <div className='form-build-fields'>{form}</div>
         </div>
-        {formBuild.valid ? (
+        {formBuild.isValid && (
           <div className='form-build-submit'>
             <Input
               id='formBuild'
               name='Form Name'
               onChange={nameChange}
               value={formBuild.name}
+              onBlur={inputFocus}
             />
-            {/* <div>
-              <label>Enter Form Name</label>
-              <input
-                className='form-control'
-                id='formName'
-                onChange={nameChange}
-                value={formBuild.formName}
-              />
-            </div> */}
             <div className='form-build-submit'>
-              <button onClick={formSubmitHandler} className='btn btn-success'>
+              <button
+                disabled={loading || !formBuild.formName.length > 0}
+                onClick={formSubmitHandler}
+                className='btn btn-success'
+              >
                 Create
               </button>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
     </div>
   );
 };
-const mapStateToProps = ({ form: { formBuild }, ui: { redirect, isAuth } }) => {
-  return { formBuild, redirect, isAuth };
+const mapStateToProps = ({
+  form: { formBuild },
+  ui: { redirect, isAuth, loading },
+}) => {
+  return { formBuild, redirect, isAuth, loading };
 };
 
 export default connect(mapStateToProps, {
   formBuildInputChange,
   formNameInputChange,
-  formBuildInputValidation,
-  formCheckValidation,
+  checkFormBuildValidation,
   formSubmit,
   createFormField,
   clearUi,

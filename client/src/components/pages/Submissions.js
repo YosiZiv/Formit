@@ -4,10 +4,10 @@ import { getSubmissions } from "../../redux/actions/submission";
 import Spinner from "../layouts/Spinner";
 import Table from "../layouts/SubmissionsTable";
 const FormsSubmissions = ({ match, getSubmissions, submissions, loading }) => {
+  const formId = match.params?.id;
   useEffect(() => {
-    const formId = match.params?.id;
     formId && getSubmissions(formId);
-  }, []);
+  }, [getSubmissions, formId]);
 
   return (
     <div className='forms-container text-center m-5'>

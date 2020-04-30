@@ -16,8 +16,19 @@
 .login-header h1 {
   font-size: 30px;
 }
+.login-submit {
+  font-size: 7px;
+  text-align: center;
+  margin-top: 20px;
+}
+.login-submit button {
+  font-size: 10px;
+}
 @media screen and (min-width: 800px) {
   .login-form-wrapper {
     width: 40%;
+  }
+  .login-submit button {
+    font-size: 15px;
   }
 }

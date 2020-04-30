@@ -9,13 +9,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
 } from "../actions/login";
-import {
-  setMessage,
-  deleteMessage,
-  isAuth,
-  redirect,
-  clearUi,
-} from "../actions/ui";
+import { setMessage, isAuth, redirect, clearUi } from "../actions/ui";
 
 const checkExpiresInMid = ({ dispatch }) => (next) => (action) => {
   if (action.type === CHECK_EXPIRES_IN) {
@@ -69,8 +63,6 @@ const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
     const {
       payload: { expiresIn, token, user },
     } = action;
-    console.log(user);
-
     const date = new Date();
     date.setDate(date.getDate() + expiresIn);
     localStorage.setItem("token", token);

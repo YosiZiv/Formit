@@ -22,14 +22,14 @@ export default function ui(state = initState, action) {
       return { ...state, message: action.payload };
     case DELETE_MESSAGE:
       return { ...state, message: null };
-    case CLEAR_UI:
-      return { ...state, loading: false, message: null, redirect: null };
     case LOADING_START:
       return { ...state, loading: true };
     case LOADING_FINISH:
       return { ...state, loading: false };
     case IS_AUTH:
       return { ...state, isAuth: action.payload };
+    case CLEAR_UI:
+      return { ...state, loading: false, message: null, redirect: null };
     default:
       return state;
   }

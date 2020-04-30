@@ -5,7 +5,7 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from "../actions/register";
-import { setMessage, redirect } from "../actions/ui";
+import { setMessage } from "../actions/ui";
 
 const userRegister = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER) {
@@ -24,14 +24,13 @@ const userRegister = ({ dispatch }) => (next) => (action) => {
 };
 const userRegisterSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER_SUCCESS) {
-    dispatch(setRegister(true));
+    return dispatch(setRegister(true));
   }
   next(action);
 };
 const userRegisterFail = ({ dispatch }) => (next) => (action) => {
   if (action.type === USER_REGISTER_FAIL) {
-    dispatch(setMessage(action.payload));
-    return true;
+    return dispatch(setMessage(action.payload));
   }
   next(action);
 };

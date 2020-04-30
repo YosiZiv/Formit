@@ -40,10 +40,7 @@ export default function login(state = initState, action) {
     }
     case CLEAR_LOGIN_STATE: {
       return {
-        loginForm: {
-          email: { value: "", error: false },
-          password: { value: "", error: false },
-        },
+        ...initState,
       };
     }
     default:

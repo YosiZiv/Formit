@@ -5,6 +5,7 @@ exports.createSubmission = async (req, res) => {
   const { body } = req;
   try {
     const newSubmission = await new Submission({ ...body }).save();
+
     if (!newSubmission) {
       return res.status(400).json({ error: "something went wrong :/" });
     }
@@ -16,9 +17,6 @@ exports.createSubmission = async (req, res) => {
       .status(201)
       .json({ data: newSubmission, form, message: "submission created" });
   } catch (err) {
-    if (err.errors.formId.message === "Not Found") {
-      return res.status(400).json({ error: "Form Not Found" });
-    }
     return res.status(400).json({ error: "validation failed" });
   }
 };

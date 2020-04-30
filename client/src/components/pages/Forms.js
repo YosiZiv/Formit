@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { getForms } from "../../redux/actions/form";
 import "./forms.css";
 import Table from "../layouts/Table";
 import Spinner from "../layouts/Spinner";
 const Forms = ({ getForms, forms, isAuth, loading }) => {
-  useEffect(() => {
+  const fetchForms = useCallback(() => {
     isAuth && getForms();
-  }, [isAuth]);
-  const user = isAuth && JSON.parse(localStorage.getItem("user"));
-  console.log(isAuth);
+  }, [isAuth, getForms]);
 
+  useEffect(() => {
+    fetchForms();
+  }, [fetchForms]);
+  const user = isAuth && JSON.parse(localStorage.getItem("user"));
   return (
     <div className='forms-container'>
       <div className='forms-header'>

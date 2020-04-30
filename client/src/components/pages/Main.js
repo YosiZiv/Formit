@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import heartImage from "../../assets/pattern-4008915_1280.png";
 import formImage from "../../assets/clipboard-3590228_1280.png";
 import "./main.css";
 import { NavLink } from "react-router-dom";
@@ -13,7 +12,7 @@ const Main = ({ isAuth }) => (
     <div className='main-content'>
       <div className='main-signup'>
         <div className='main-image'>
-          <img src={formImage} />
+          <img alt='main' src={formImage} />
         </div>
         {!isAuth ? (
           <div className='main-button'>

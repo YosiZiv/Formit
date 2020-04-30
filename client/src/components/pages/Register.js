@@ -30,7 +30,7 @@ const Register = ({
       clearUi();
       clearRegisterState();
     },
-    []
+    [clearUi, clearRegisterState]
   );
   redirect && history.push(redirect);
   const handleInputChange = (event) => {
@@ -125,7 +125,7 @@ const Register = ({
                   disabled={loading}
                   onClick={handleFormSubmit}
                   type='button'
-                  className='btn btn-primary w-25'
+                  className='btn btn-primary'
                 >
                   Register
                 </button>
@@ -134,7 +134,9 @@ const Register = ({
 
             {loading && <Spinner />}
             {message && (
-              <div className='register-message text-center'>{message} </div>
+              <div className='register-message text-center text-danger m-2'>
+                {message}
+              </div>
             )}
           </div>
         </div>
