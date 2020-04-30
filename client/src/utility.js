@@ -71,8 +71,6 @@ export const checkFormBuildValidation = (form, validation) => {
     name: {},
   };
   form.forEach((item) => {
-    console.log(item);
-
     let labelError =
       item && checkValidation("label", item.label.value, validation);
     let nameError =
@@ -84,7 +82,6 @@ export const checkFormBuildValidation = (form, validation) => {
       errors.name[item.id] = nameError;
     }
   });
-  console.log(errors);
 
   return errors;
 };

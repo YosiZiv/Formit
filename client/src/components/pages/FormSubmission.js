@@ -78,8 +78,6 @@ const FormSubmission = ({
     ) : (
       !loading && form.fields?.length && <div>Form didn't found</div>
     );
-  console.log(submission);
-
   return (
     <div className='form-submit-container'>
       {redirect && <Redirect to={redirect} />}

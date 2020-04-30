@@ -50,7 +50,6 @@ const FormBuild = ({
   };
   const inputFocus = () => {
     const form = formBuild?.fields?.length ? formBuild.fields : [];
-    console.log(form);
     checkFormBuildValidation({ form, formValidation });
   };
   const formSubmitHandler = () => {
@@ -65,8 +64,6 @@ const FormBuild = ({
   const form = formBuild.fields?.length
     ? formBuild.fields.map((field, index) => {
         const { label, name, type } = field;
-        console.log(label, name);
-
         return (
           <FormField
             key={index}
@@ -81,8 +78,6 @@ const FormBuild = ({
         );
       })
     : null;
-  console.log(formBuild.formName.length);
-
   return (
     <div className='form-build-container'>
       {!localStorage.getItem("token") ||

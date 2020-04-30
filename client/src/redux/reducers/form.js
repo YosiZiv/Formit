@@ -69,8 +69,6 @@ export default function form(state = initState, action) {
         action.payload.form,
         action.payload.formValidation
       );
-      console.log(errors);
-
       const isValid =
         Object.keys(errors?.name).length || Object.keys(errors?.label).length
           ? false

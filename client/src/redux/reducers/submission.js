@@ -42,8 +42,6 @@ export default function submission(state = initState, action) {
       };
     }
     case CHECK_SUBMISSION_FORM_VALIDATION: {
-      console.log(action.payload.form);
-
       const errors = checkFormValidation(
         action.payload.form,
         action.payload.formValidation
