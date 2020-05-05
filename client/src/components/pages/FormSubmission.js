@@ -47,8 +47,6 @@ const FormSubmission = ({
 
   const inputFocus = () => {
     const form = submission?.fields?.length ? submission.fields : [];
-    console.log(form, formValidation);
-
     checkSubmissionFormValidation({ form, formValidation });
   };
   const handleFormSubmit = () => {

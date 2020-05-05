@@ -17,7 +17,7 @@ export const api = ({ dispatch }) => (next) => (action) => {
           dispatch(loadingFinish());
           dispatch({
             type: onError,
-            payload: error.response?.data?.error ?? "Someting Went Wrong :/",
+            payload: error.response?.data?.errors || "Someting Went Wrong :/",
           });
         });
     }
@@ -32,7 +32,7 @@ export const api = ({ dispatch }) => (next) => (action) => {
           dispatch(loadingFinish());
           dispatch({
             type: onError,
-            payload: error.response?.data?.error ?? "Someting Went Wrong :/",
+            payload: error.response?.data?.errors || "Someting Went Wrong :/",
           });
         });
     }
