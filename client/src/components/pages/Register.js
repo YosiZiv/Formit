@@ -8,22 +8,24 @@ import {
   userRegister,
   clearRegisterState,
 } from "../../redux/actions/register";
-import { deleteMessage, clearUi } from "../../redux/actions/ui";
+import { clearUi, clearMessages } from "../../redux/actions/ui";
 import Input from "../layouts/Input";
 import Spinner from "../layouts/Spinner";
+import Button from "../layouts/Button";
+import Messages from "../layouts/Messages";
 import { removeErrorFromObjects } from "../../utility";
 const Register = ({
   history,
+  messages,
+  redirect,
+  registerForm,
+  registerFinish,
   registerInputChange,
   registerInputValidation,
-  registerForm,
   userRegister,
-  registerFinish,
-  message,
-  loading,
-  redirect,
   clearRegisterState,
   clearUi,
+  clearMessages,
 }) => {
   useEffect(
     () => () => {
@@ -35,8 +37,8 @@ const Register = ({
   redirect && history.push(redirect);
   const handleInputChange = (event) => {
     const { id, value } = event.currentTarget;
-    if (message) {
-      deleteMessage();
+    if (Object.keys(messages).length) {
+      clearMessages();
     }
     registerInputChange({ id, value });
   };
@@ -97,7 +99,7 @@ const Register = ({
                 value={registerForm.password?.value ?? ""}
                 onChange={handleInputChange}
                 onBlur={(e) =>
-                  handleInputFocus(e, "password", {
+                  handleInputFocus(e, {
                     isRequired: true,
                     minLength: 6,
                     maxLength: 30,
@@ -113,39 +115,33 @@ const Register = ({
                 value={registerForm.passwordConfirm?.value ?? ""}
                 onChange={handleInputChange}
                 onBlur={(e) =>
-                  handleInputFocus(e, "passwordConfirm", {
+                  handleInputFocus(e, {
                     isRequired: true,
                     minLength: 6,
                     maxLength: 30,
                   })
                 }
               />
-              <div className='mt-5 text-center'>
-                <button
-                  disabled={loading}
+              <div className='register-submit text-center'>
+                <Button
                   onClick={handleFormSubmit}
                   type='button'
                   className='btn btn-primary'
-                >
-                  Register
-                </button>
+                  text='Register'
+                />
               </div>
             </form>
 
-            {loading && <Spinner />}
-            {message && (
-              <div className='register-message text-center text-danger m-2'>
-                {message}
-              </div>
-            )}
+            <Spinner />
+            <Messages messages={messages} color='#EC1414' />
           </div>
         </div>
       ) : (
-        <div>
-          <h2 className='text-center m-5'>Register Complete Thanks!!</h2>
+        <div className='register-complate-container'>
+          <h6>Register Complete Thanks!!</h6>
           <div className='register-complate'>
             <NavLink to='/login'>
-              <button className='btn btn-success text-center'>Login</button>
+              <Button type='button' className='btn btn-success' text='Login' />
             </NavLink>
           </div>
         </div>
@@ -155,9 +151,9 @@ const Register = ({
 };
 const mapStateToProps = ({
   register: { registerForm, registerFinish },
-  ui: { message, loading, redirect },
+  ui: { messages, redirect },
 }) => {
-  return { registerForm, registerFinish, message, loading, redirect };
+  return { registerForm, registerFinish, messages, redirect };
 };
 
 export default connect(mapStateToProps, {
@@ -166,4 +162,5 @@ export default connect(mapStateToProps, {
   userRegister,
   clearRegisterState,
   clearUi,
+  clearMessages,
 })(Register);

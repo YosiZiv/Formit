@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import "./formSubmission.css";
 import { getForm } from "../../redux/actions/form";
 import {
@@ -11,9 +10,11 @@ import {
 } from "../../redux/actions/submission";
 import SubmissionInput from "../layouts/SubmissionInputs";
 import Spinner from "../layouts/Spinner";
+import Button from "../layouts/Button";
 import { removeErrorFromObjects } from "../../utility";
 import { clearUi } from "../../redux/actions/ui";
 const FormSubmission = ({
+  history,
   getForm,
   form,
   submission,
@@ -21,11 +22,11 @@ const FormSubmission = ({
   submissionInputChange,
   checkSubmissionFormValidation,
   newSubmission,
-  loading,
   redirect,
   clearUi,
   clearSubmissionState,
 }) => {
+  redirect && history.push(redirect);
   const formValidation = {
     isRequired: true,
     minLength: 2,
@@ -56,9 +57,8 @@ const FormSubmission = ({
     };
     newSubmission(filterFields);
   };
-  const submissionForm =
-    form.fields?.length && !loading ? (
-      form.fields.map((field, index) => {
+  const submissionForm = form?.fields?.length
+    ? form.fields.map((field, index) => {
         const { type } = field;
         return (
           <SubmissionInput
@@ -73,43 +73,38 @@ const FormSubmission = ({
           />
         );
       })
-    ) : loading ? (
-      <Spinner />
-    ) : (
-      !loading && form.fields?.length && <div>Form didn't found</div>
-    );
+    : null;
   return (
     <div className='form-submit-container'>
-      {redirect && <Redirect to={redirect} />}
-      <div className='form-submit-wrapper'>
-        <div className='form-submit-header'>
-          <h2>{form.formName}</h2>
-        </div>
-        <div className='form-submit-body'>
-          {submissionForm}
-          {form.fields?.length && (
+      <Spinner />
+      {submissionForm ? (
+        <div className='form-submit-wrapper'>
+          <div className='form-submit-header'>
+            <h2>{form.formName}</h2>
+          </div>
+          <div className='form-submit-body'>
+            {submissionForm}
             <div className='mt-5 text-center'>
-              <button
-                disabled={loading || !submission.isValid}
-                onClick={handleFormSubmit}
-                type='button'
+              <Button
+                disabled={!submission.isValid}
                 className='btn btn-success'
-              >
-                Submit
-              </button>
+                text='Submit'
+                type='button'
+                onClick={handleFormSubmit}
+              />
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };
 const mapStateToProps = ({
   form: { form },
   submission: { submission },
-  ui: { redirect, loading },
+  ui: { redirect },
 }) => {
-  return { form, submission, loading, redirect };
+  return { form, submission, redirect };
 };
 
 export default connect(mapStateToProps, {

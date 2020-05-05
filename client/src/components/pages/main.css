@@ -28,22 +28,33 @@
 
 .main-image {
   margin: 0 auto;
-  width: 50%;
+  width: 80%;
+  height: 300px;
 }
 .main-image img {
-  width: 80%;
-  height: 250px;
+  width: 100%;
+  height: 100%;
 }
 
 .main-button {
   display: flex;
   justify-content: center;
-  width: 95%;
+}
+.main-button a {
+  width: 80%;
 }
 .main-button button {
   margin-top: 20px;
-  padding: 10px 40px;
+  width: 100%;
+  font-size: 12px;
 }
+@media screen and (min-width: 300px) {
+  .main-button a {
+    margin-top: 20px;
+    width: 30%;
+  }
+}
+
 @media screen and (min-width: 600px) {
   .main-header h2 {
     font-size: 30px;
@@ -51,11 +62,21 @@
   .main-header label {
     font-size: 20px;
   }
-  .main-image img {
-    height: 460px;
-  }
   .main-image {
     margin: 0 auto;
     width: 30%;
+  }
+  .main-button a {
+    margin-top: 20px;
+    width: 25%;
+  }
+  .main-button button {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .main-button a {
+    margin-top: 20px;
+    width: 13%;
   }
 }

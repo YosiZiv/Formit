@@ -1,27 +1,29 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import "./login.css";
 import Input from "../layouts/Input";
+import Button from "../layouts/Button";
+import Messages from "../layouts/Messages";
 import {
   loginInputChange,
   loginInputValidation,
   userLogin,
   clearLoginState,
 } from "../../redux/actions/login";
-import { deleteMessage, clearUi } from "../../redux/actions/ui";
+import { clearUi, clearMessages } from "../../redux/actions/ui";
 import Spinner from "../layouts/Spinner";
+import { removeErrorFromObjects } from "../../utility";
 const Login = ({
+  history,
   loginForm,
+  messages,
+  redirect,
   loginInputChange,
   loginInputValidation,
   userLogin,
-  message,
-  deleteMessage,
-  loading,
   clearLoginState,
+  clearMessages,
   clearUi,
-  redirect,
 }) => {
   useEffect(
     () => () => {
@@ -30,31 +32,25 @@ const Login = ({
     },
     [clearUi, clearLoginState]
   );
-
+  redirect && history.push(redirect);
   const handleInputChange = (event, id) => {
     const { value } = event.currentTarget;
-
-    if (message) {
-      deleteMessage();
+    if (Object.keys(messages).length) {
+      clearMessages();
     }
     loginInputChange({ id, value });
   };
   const handleInputFocus = (event, id, validation) => {
     const { value } = event.currentTarget;
-
     loginInputValidation({ id, value, validation });
   };
   const handleFormSubmit = async () => {
-    const payload = {
-      email: loginForm.email.value,
-      password: loginForm.password.value,
-    };
-    userLogin(payload);
+    const data = removeErrorFromObjects(loginForm);
+    userLogin(data);
   };
   return (
     <div className='login-container'>
       <div className='login-form-wrapper'>
-        {redirect && <Redirect to={redirect} />}
         <div className='login-header'>
           <h1>Login</h1>
         </div>
@@ -92,22 +88,16 @@ const Login = ({
               }
             />
             <div className='login-submit text-center'>
-              <button
-                disabled={loading}
+              <Button
                 onClick={handleFormSubmit}
                 type='button'
                 className='btn btn-primary'
-              >
-                Login
-              </button>
+                text='Login'
+              />
             </div>
           </form>
-          {loading && <Spinner />}
-          {message && (
-            <div className='text-center text-danger m-2'>
-              <p>{message}</p>
-            </div>
-          )}
+          <Spinner />
+          <Messages messages={messages} color='#EC1414' />
         </div>
       </div>
     </div>
@@ -115,16 +105,16 @@ const Login = ({
 };
 const mapStateToProps = ({
   login: { loginForm },
-  ui: { message, loading, redirect },
+  ui: { redirect, messages },
 }) => {
-  return { loginForm, message, loading, redirect };
+  return { loginForm, redirect, messages };
 };
 
 export default connect(mapStateToProps, {
   loginInputChange,
   loginInputValidation,
   userLogin,
-  deleteMessage,
+  clearMessages,
   clearLoginState,
   clearUi,
 })(Login);

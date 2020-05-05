@@ -5,14 +5,14 @@ const SubmissionTable = ({ data }) => {
   const createTable = (data) => {
     if (data.length) {
       const head = data[0].fields.map((items) => {
-        return <th>{items.name}</th>;
+        return <th key={items.name}>{items.name}</th>;
       });
       const body = data.map((items, index) => {
         const row = items.fields.map((item) => {
-          return <td>{item.value}</td>;
+          return <td key={item.value}>{item.value}</td>;
         });
         return (
-          <tr>
+          <tr key={index}>
             <td>{index}</td>
             {row}
           </tr>
@@ -21,13 +21,13 @@ const SubmissionTable = ({ data }) => {
       return { head, body };
     }
   };
-  if (data.length) {
+  if (data?.length) {
     table = createTable(data);
   }
   return (
     <>
       <div className='table-container'>
-        {data.length ? (
+        {data?.length && (
           <table className='form-table'>
             <thead>
               <tr>
@@ -37,8 +37,6 @@ const SubmissionTable = ({ data }) => {
             </thead>
             <tbody>{table.body}</tbody>
           </table>
-        ) : (
-          <div className='text-center m-4'>No Submissions Found</div>
         )}
       </div>
     </>

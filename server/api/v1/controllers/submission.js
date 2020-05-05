@@ -3,34 +3,49 @@ const { Submission, Form } = require("../../../models/index");
 exports.createSubmission = async (req, res) => {
   // START UP CREATE FUNCTION FOR Submission refactore later
   const { body } = req;
+  const errors = {};
   try {
     const newSubmission = await new Submission({ ...body }).save();
 
     if (!newSubmission) {
-      return res.status(400).json({ error: "something went wrong :/" });
+      errors.submission = "validation failed";
+      return res.status(400).json({ errors });
     }
-    const form = await Form.findOneAndUpdate(
+    await Form.findOneAndUpdate(
       { _id: body.formId },
       { $inc: { submissions: 1 } }
     );
-    return res
-      .status(201)
-      .json({ data: newSubmission, form, message: "submission created" });
+    return res.status(201).json({ message: "submission created" });
   } catch (err) {
-    return res.status(400).json({ error: "validation failed" });
+    errors.submission = "validation failed";
+    return res.status(400).json({ errors });
   }
 };
 
 exports.getSubmissionByFormId = async (req, res, next) => {
   const {
     params: { id: formId },
+    decoded: {
+      $__: { _id },
+    },
   } = req;
+  const errors = {};
   try {
-    const submissionsByFormId = await Submission.find({ formId });
-    if (!Object.keys(submissionsByFormId).length)
-      return res.status(400).json({ error: "there is no submissions yet" });
+    // make sure we find one form with the valid decoded userId from token and the formId from params
+    const userForm = await Form.findOne({ user: _id, _id: formId });
+    if (!userForm) {
+      errors.form = "Error form not found for this user";
+      return res.status(400).json({ errors });
+    }
+    //after that we can use what we find submissions
+    const submissionsByFormId = await Submission.find({ formId: userForm });
+    if (!Object.keys(submissionsByFormId).length) {
+      errors.submissions = "there is no submissions yet";
+      return res.status(400).json({ errors });
+    }
     res.status(200).json({ data: submissionsByFormId });
   } catch (error) {
-    if (error) return res.status(400).json({ error });
+    errors.server = "someting went wrong :/";
+    if (error) return res.status(400).json({ errors });
   }
 };

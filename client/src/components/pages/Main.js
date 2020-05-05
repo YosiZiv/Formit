@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import formImage from "../../assets/clipboard-3590228_1280.png";
+import Button from "../layouts/Button";
 import "./main.css";
 import { NavLink } from "react-router-dom";
 const Main = ({ isAuth }) => (
@@ -23,7 +24,11 @@ const Main = ({ isAuth }) => (
         ) : (
           <div className='main-button'>
             <NavLink to='/formBuild'>
-              <button className='btn btn-danger text-center'>Build Form</button>
+              <Button
+                type='button'
+                className='btn btn-danger'
+                text='Build Form'
+              />
             </NavLink>
           </div>
         )}
@@ -34,4 +39,4 @@ const Main = ({ isAuth }) => (
 const mapStateToProps = ({ ui: { isAuth } }) => {
   return { isAuth };
 };
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps)(Main);
