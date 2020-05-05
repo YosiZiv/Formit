@@ -31,8 +31,7 @@ const formSubmit = ({ dispatch }) => (next) => (action) => {
 
 const formSubmitSuccess = ({ dispatch }) => (next) => (action) => {
   if (action.type === FORM_SUBMIT_SUCCESS) {
-    dispatch(redirect("/forms"));
-    return dispatch(clearUi());
+    return dispatch(redirect("/forms"));
   }
   next(action);
 };

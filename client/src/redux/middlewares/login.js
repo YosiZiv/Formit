@@ -71,7 +71,6 @@ const userLoginSuccess = ({ dispatch }) => (next) => (action) => {
     dispatch(checkExpiresIn({ expiresIn: date }));
     dispatch(isAuth(true));
     dispatch(redirect("/"));
-    dispatch(clearUi());
   }
   next(action);
 };
@@ -87,7 +86,6 @@ const userLogout = ({ dispatch }) => (next) => (action) => {
     localStorage.removeItem("expiresIn");
     dispatch(isAuth(false));
     dispatch(redirect("/"));
-    dispatch(clearUi());
   }
   next(action);
 };
