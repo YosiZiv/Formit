@@ -1,5 +1,5 @@
 export const SET_MESSAGE = "[UI] Message";
-export const DELETE_MESSAGE = "[UI] Delete Message";
+export const CLEAR_MESSAGES = "[UI] Clear Messages";
 export const REDIRECT = "[UI] Redirect";
 export const CLEAR_UI = "[UI] Clear UI State";
 export const LOADING_START = "[UI] Loading Start";
@@ -9,11 +9,9 @@ export const setMessage = (payload) => ({
   type: SET_MESSAGE,
   payload,
 });
-export const deleteMessage = () => {
-  return {
-    type: DELETE_MESSAGE,
-  };
-};
+export const clearMessages = () => ({
+  type: CLEAR_MESSAGES,
+});
 export const redirect = (payload) => ({
   type: REDIRECT,
   payload,

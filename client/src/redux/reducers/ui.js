@@ -1,6 +1,6 @@
 import {
   SET_MESSAGE,
-  DELETE_MESSAGE,
+  CLEAR_MESSAGES,
   REDIRECT,
   CLEAR_UI,
   LOADING_START,
@@ -8,7 +8,7 @@ import {
   IS_AUTH,
 } from "../actions/ui";
 const initState = {
-  message: null,
+  messages: {},
   redirect: null,
   loading: false,
   isAuth: false,
@@ -19,9 +19,9 @@ export default function ui(state = initState, action) {
     case REDIRECT:
       return { ...state, redirect: action.payload };
     case SET_MESSAGE:
-      return { ...state, message: action.payload };
-    case DELETE_MESSAGE:
-      return { ...state, message: null };
+      return { ...state, messages: action.payload };
+    case CLEAR_MESSAGES:
+      return { ...state, messages: {} };
     case LOADING_START:
       return { ...state, loading: true };
     case LOADING_FINISH:
@@ -29,7 +29,7 @@ export default function ui(state = initState, action) {
     case IS_AUTH:
       return { ...state, isAuth: action.payload };
     case CLEAR_UI:
-      return { ...state, loading: false, message: null, redirect: null };
+      return { ...state, loading: false, messages: {}, redirect: null };
     default:
       return state;
   }
